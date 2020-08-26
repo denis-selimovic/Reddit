@@ -2,8 +2,7 @@ import React from "react";
 import { Field, reduxForm } from "redux-form";
 
 class Login extends React.Component {
-
-
+    
     renderInput = ({ label, type, input, meta }) => {
         const className = `field ${meta.error && meta.touched ? 'error' : ''}`;
         return (
@@ -14,9 +13,7 @@ class Login extends React.Component {
         );
     }
 
-    onSubmit = () => {
-
-    }
+    onSubmit = formValues => this.props.onSubmit(formValues);
 
     render() {
         return (

@@ -1,9 +1,14 @@
 import React from "react";
 import ReactDOM from 'react-dom';
 import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
+import { signIn } from '../../actions/index'
 import Login from "../forms/Login";
 
-export default props => {
+const LoginModal = () => {
+
+    const onSubmit = formValues => this.props.signIn(formValues);
+
     return ReactDOM.createPortal(
         <div className="ui dimmer modals visible active">
             <div className="ui standard modal visible active">
@@ -25,7 +30,7 @@ export default props => {
                                 <div className="ui horizontal divider"/>
                                 <div className="ui horizontal divider"/>
                                 <div className="item">
-                                    <Login/>
+                                    <Login onSubmit={onSubmit}/>
                                 </div>
                                 <div className="ui horizontal divider"/>
                                 <div className="ui horizontal divider"/>
@@ -49,3 +54,5 @@ export default props => {
         document.getElementById("modal")
     );
 };
+
+export default connect(null, { signIn })(LoginModal);
