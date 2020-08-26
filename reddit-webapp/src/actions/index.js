@@ -4,7 +4,7 @@ import history from "../history";
 
 export const signIn = formValues => async dispatch => {
     const response = await reddit.post("/api/auth/login", formValues);
-    dispatch({ type: SIGN_IN, payload: response.data.token });
+    dispatch({ type: SIGN_IN, payload: response.data });
     history.push("/");
 };
 
