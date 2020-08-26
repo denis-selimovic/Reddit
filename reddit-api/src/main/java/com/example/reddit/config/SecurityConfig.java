@@ -22,7 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
-    private final String[] unsecuredEndpoints = new String[] {"/api/auth/**"};
+    private final String[] unsecuredEndpoints = new String[] {"/api/auth/**", "/api/guest/**"};
 
     private final AuthService authService;
     private final JwtAuthEntryPoint jwtAuthEntryPoint;

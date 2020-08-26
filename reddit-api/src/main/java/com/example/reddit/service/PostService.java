@@ -9,7 +9,9 @@ import com.example.reddit.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class PostService {
@@ -69,5 +71,11 @@ public class PostService {
         }
         userRepository.save(user);
         return postRepository.save(p);
+    }
+
+    public Set<Post> findAll() {
+        Set<Post> posts = new HashSet<>();
+        postRepository.findAll().forEach(posts::add);
+        return posts;
     }
 }
