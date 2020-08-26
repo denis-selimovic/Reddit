@@ -1,5 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
+import GuestHeader from "./GuestHeader";
+import UserHeader from "./UserHeader";
 
 class Header extends React.Component {
 
@@ -19,17 +21,15 @@ class Header extends React.Component {
                                 <i className="search link icon"/>
                         </div>
                     </div>
-                    <div className="ui item">
-                        <Link to="/login" className="ui button">Log in</Link>
-                    </div>
-                    <div className="ui item">
-                        <Link to="/signup"  className="ui primary button">Sign up</Link>
-                    </div>
+                    {this.props.isSignedIn ? <UserHeader/> : <GuestHeader/>}
                 </div>
             </div>
         );
     }
 }
 
+const mapStateToProps = state => {
+    return { isSignedIn: state.auth.isSignedIn}
+};
 
-export default Header;
+export default connect(mapStateToProps)(Header);

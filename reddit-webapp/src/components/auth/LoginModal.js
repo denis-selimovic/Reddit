@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import { signIn } from '../../actions/index'
 import Login from "../forms/Login";
 
-const LoginModal = () => {
+const LoginModal = props => {
 
-    const onSubmit = formValues => this.props.signIn(formValues);
+    const onSubmit = formValues => props.signIn(formValues);
 
     return ReactDOM.createPortal(
         <div className="ui dimmer modals visible active">

@@ -13,13 +13,16 @@ class Login extends React.Component {
         );
     }
 
-    onSubmit = formValues => this.props.onSubmit(formValues);
+    onSubmit = formValues => {
+        //console.log(formValues);
+        this.props.onSubmit(formValues);
+    }
 
     render() {
         return (
             <form className="ui form error" onSubmit={this.props.handleSubmit(this.onSubmit)}>
-                <Field label="Enter username" type="text" name="title" component={this.renderInput}/>
-                <Field label="Enter password" type="password" name="description" component={this.renderInput}/>
+                <Field label="Enter username" type="text" name="username" component={this.renderInput}/>
+                <Field label="Enter password" type="password" name="password" component={this.renderInput}/>
                 <button className="ui button primary">Log in</button>
             </form>
         );
