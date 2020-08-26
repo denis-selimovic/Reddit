@@ -1,16 +1,16 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
-export default () => {
+export default props => {
+
     return (
-        <React.Fragment>
-            <div className="ui dropdown item">
-                Language <i className="dropdown icon"/>
-                <div className="menu">
-                    <a className="item">English</a>
-                    <a className="item">Russian</a>
-                    <a className="item">Spanish</a>
-                </div>
+        <div className="item">
+            <Link to="/profile" className="item">
+                <i className="user large icon"/>
+            </Link>
+            <div className="header">
+                {props.username}
             </div>
-        </React.Fragment>
+        </div>
     );
 };

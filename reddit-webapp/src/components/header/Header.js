@@ -21,7 +21,7 @@ class Header extends React.Component {
                                 <i className="search link icon"/>
                         </div>
                     </div>
-                    {this.props.isSignedIn ? <UserHeader/> : <GuestHeader/>}
+                    {this.props.isSignedIn ? <UserHeader username="Denis"/> : <GuestHeader/>}
                 </div>
             </div>
         );
