@@ -5,10 +5,10 @@ import { upvote, downvote, fetchTopics, subscribeToTopic, unsubscribeToTopic } f
 import Rating from "../common/Rating";
 import ToggleButton from "../common/ToggleButton";
 
-const Post = ({ post, upvote, downvote, fetchTopics, subscribeToTopic, unsubscribeToTopic }) => {
+const Post = ({ post, upvote, downvote, fetchTopics, subscribeToTopic, unsubscribeToTopic, votes }) => {
     return (
             <div className="ui icon message" style={{backgroundColor: 'white'}}>
-                <Rating post={post} upvote={upvote} downvote={downvote}/>
+                <Rating post={post} upvote={upvote} downvote={downvote} votes={votes}/>
                 <div className="content" style={{paddingLeft: '10px', paddingRight: '10px'}}>
                     <span>
                         <p>

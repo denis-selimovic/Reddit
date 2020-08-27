@@ -1,11 +1,10 @@
 import React from "react";
-import { connect } from "react-redux";
 import { getUser } from "../../user";
 import history from "../../history";
 
 const Rating = props => {
 
-    const { post, upvote, downvote, votedPosts} = props;
+    const { post, upvote, downvote, votes} = props;
 
     const onUpvote = () => {
         checkCredentials();
@@ -24,7 +23,7 @@ const Rating = props => {
 
     const getVoteIconColor = status => {
         let showColor = false;
-        votedPosts.forEach(v => {
+        votes.forEach(v => {
             if (v.post === post.id && v.status === status) showColor = true;
         })
         return (showColor && getUser()) ? 'orange' : '';
@@ -43,9 +42,5 @@ const Rating = props => {
     );
 }
 
-const mapStateToProps = state => {
-    const votedPosts = Object.values(state.votes)
-    return { votedPosts }
-};
 
-export default connect(mapStateToProps)(Rating);
+export default Rating;
