@@ -32,7 +32,7 @@ const Rating = props => {
         votedPosts.forEach(v => {
             if (v[0] && v[0].post === post.id && v[0].status === status) showColor = true;
         })
-        return (showColor) ? 'orange' : '';
+        return (showColor && getUser()) ? 'orange' : '';
     }
 
     return (
