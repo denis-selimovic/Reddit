@@ -48,7 +48,11 @@ public class DataInitializer implements CommandLineRunner {
         Post post = new Post("Foo", "Bar");
         post.setUser(user3);
         post.setTopic(topic);
+        Post post2 = new Post("Tell me something about yourself?", "Bar");
+        post2.setUser(user2);
+        post2.setTopic(topic);
         postRepository.save(post);
+        postRepository.save(post2);
         Comment comment = new Comment("Comment 1");
         Comment comment2 = new Comment("Comment 2");
         comment.setUser(user2);
