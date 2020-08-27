@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from 'react-redux';
 import GuestHeader from "./GuestHeader";
 import UserHeader from "./UserHeader";
+import { getUser } from "../../user";
 
 class Header extends React.Component {
 
@@ -21,7 +22,7 @@ class Header extends React.Component {
                                 <i className="search link icon"/>
                         </div>
                     </div>
-                    {this.props.isSignedIn ? <UserHeader username="Denis"/> : <GuestHeader/>}
+                    {getUser() && getUser().token ? <UserHeader username="Denis"/> : <GuestHeader/>}
                 </div>
             </div>
         );

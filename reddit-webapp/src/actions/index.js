@@ -5,7 +5,8 @@ import { getUser, addUser, removeUser } from "../user";
 
 export const signIn = formValues => {
     const user = getUser();
-    if (user && user.jwt) {
+    console.log(user);
+    if (user && user.token) {
         history.push("/");
         return {
             type: SIGN_IN,
@@ -15,6 +16,7 @@ export const signIn = formValues => {
     return async dispatch => {
         const response = await reddit.post("/api/auth/login", formValues);
         dispatch({ type:SIGN_IN, payload: response.data });
+        removeUser();
         addUser(response.data);
         history.push("/");
     };
