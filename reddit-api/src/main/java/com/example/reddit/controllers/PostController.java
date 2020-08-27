@@ -96,9 +96,6 @@ public class PostController {
         if (userService.isDownVoted(user, post.get().getId(), RatingType.POST)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GenericResponse("Post already down voted"));
         }
-        if (post.get().getRating().getLikes() - post.get().getRating().getDislikes() == 0) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GenericResponse("Cannot downote further"));
-        }
         return ResponseEntity.ok(postService.downVote(post.get(), user, userService.isUpVoted(user, post.get().getId(), RatingType.POST)));
     }
 }

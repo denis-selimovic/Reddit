@@ -24,15 +24,10 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/post/upvotes")
+    @GetMapping("/post/votes")
     public Set<RatingConstraint> getUpvotedPosts(Principal principal) {
         User user = userService.getByUsername(principal.getName());
-        return user.getRatings().stream().filter(r -> r.getStatus() == 1 && r.getType() == RatingType.POST).collect(Collectors.toSet());
+        return user.getRatings().stream().filter(r -> r.getType() == RatingType.POST && r.getStatus() != 0).collect(Collectors.toSet());
     }
 
-    @GetMapping("/post/downvotes")
-    public Set<RatingConstraint> getDownvotedPosts(Principal principal) {
-        User user = userService.getByUsername(principal.getName());
-        return user.getRatings().stream().filter(r -> r.getStatus() == -1 && r.getType() == RatingType.POST).collect(Collectors.toSet());
-    }
 }
