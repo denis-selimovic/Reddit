@@ -74,6 +74,9 @@ public class PostController {
         if (post.isEmpty()) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GenericResponse("Post does not exist"));
         }
+        if (post.get().getUser().getId().equals(user.getId())) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GenericResponse("Cannot upvote your own post"));
+        }
         if (userService.isUpVoted(user, post.get().getId(), RatingType.POST)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GenericResponse("Post already up voted"));
         }
@@ -87,8 +90,14 @@ public class PostController {
         if (post.isEmpty()) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GenericResponse("Post does not exist"));
         }
+        if (post.get().getUser().getId().equals(user.getId())) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GenericResponse("Cannot downvote your own post"));
+        }
         if (userService.isDownVoted(user, post.get().getId(), RatingType.POST)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GenericResponse("Post already down voted"));
+        }
+        if (post.get().getRating().getLikes() - post.get().getRating().getDislikes() == 0) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GenericResponse("Cannot downote further"));
         }
         return ResponseEntity.ok(postService.downVote(post.get(), user, userService.isUpVoted(user, post.get().getId(), RatingType.POST)));
     }

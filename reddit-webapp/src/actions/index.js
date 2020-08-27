@@ -1,11 +1,10 @@
-import {SIGN_OUT, SIGN_IN, FETCH_POSTS} from "./types";
+import {SIGN_OUT, SIGN_IN, FETCH_POSTS, UPVOTE, DOWNVOTE} from "./types";
 import reddit from "../api/reddit";
 import history from "../history";
 import { getUser, addUser, removeUser } from "../user";
 
 export const signIn = formValues => {
     const user = getUser();
-    console.log(user);
     if (user && user.token) {
         history.push("/");
         return {
@@ -15,9 +14,8 @@ export const signIn = formValues => {
     }
     return async dispatch => {
         const response = await reddit.post("/api/auth/login", formValues);
-        dispatch({ type:SIGN_IN, payload: response.data });
-        removeUser();
         addUser(response.data);
+        dispatch({ type:SIGN_IN, payload: response.data });
         history.push("/");
     };
 };
@@ -32,4 +30,32 @@ export const signOut = () => {
 export const fetchPosts = () => async dispatch => {
     const response = await reddit.get("/api/guest/posts");
     dispatch( {type: FETCH_POSTS, payload: response.data} );
+};
+
+export const upvote = id => async dispatch => {
+    try {
+        const response = await reddit.post(`/api/posts/upvote?post=${id}`, {}, {
+            headers: {
+                Authorization: `Bearer ${getUser().token}`
+            }
+        });
+        dispatch( {type: UPVOTE, payload: response.data} );
+    }
+    catch (err) {
+
+    }
+};
+
+export const downvote = id => async dispatch => {
+    try {
+        const response = await reddit.post(`/api/posts/downvote?post=${id}`, {}, {
+            headers: {
+                Authorization: `Bearer ${getUser().token}`
+            }
+        });
+        dispatch( {type: DOWNVOTE, payload: response.data} );
+    }
+    catch (err) {
+
+    }
 };

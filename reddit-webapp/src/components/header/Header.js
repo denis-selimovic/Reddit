@@ -1,11 +1,15 @@
 import React from "react";
+import { connect } from "react-redux";
 import GuestHeader from "./GuestHeader";
 import UserHeader from "./UserHeader";
 import { getUser } from "../../user";
 
 class Header extends React.Component {
 
+
     render() {
+        const user = getUser();
+        const render = (user && user.token) || this.props.isSignedIn;
         return (
             <div className="ui secondary  menu">
                 <div className="item">
@@ -21,11 +25,15 @@ class Header extends React.Component {
                                 <i className="search link icon"/>
                         </div>
                     </div>
-                    {getUser() && getUser().token ? <UserHeader username="Denis"/> : <GuestHeader/>}
+                    {render ? <UserHeader username={user.username}/> : <GuestHeader/>}
                 </div>
             </div>
         );
     }
 }
 
-export default Header;
+const mapStateToProps = state => {
+    return { isSignedIn: state.auth.isSignedIn };
+};
+
+export default connect(mapStateToProps)(Header);

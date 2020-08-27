@@ -1,17 +1,13 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import { connect } from "react-redux";
+import { upvote, downvote } from "../../actions";
+import Rating from "../common/Rating";
 
-export default ({ post }) => {
+const Post = ({ post, upvote, downvote }) => {
     return (
             <div className="ui icon message" style={{backgroundColor: 'white'}}>
-                <div className="ui vertical icon buttons">
-                    <button className="ui icon button" style={{backgroundColor: 'white'}}>
-                        <i className="chevron up icon"/>
-                    </button>
-                    <button className="ui icon button" style={{backgroundColor: 'white'}}>
-                        <i className="chevron down icon"/>
-                    </button>
-                </div>
+                <Rating post={post} upvote={upvote} downvote={downvote}/>
                 <div className="content" style={{paddingLeft: '10px', paddingRight: '10px'}}>
                     <span>
                         <p>
@@ -31,3 +27,5 @@ export default ({ post }) => {
             </div>
     );
 };
+
+export default connect(null, { upvote, downvote })(Post);
