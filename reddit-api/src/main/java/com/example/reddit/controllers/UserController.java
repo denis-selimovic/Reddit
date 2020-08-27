@@ -25,9 +25,15 @@ public class UserController {
     }
 
     @GetMapping("/post/votes")
-    public Set<RatingConstraint> getUpvotedPosts(Principal principal) {
+    public Set<RatingConstraint> getPostVotes(Principal principal) {
         User user = userService.getByUsername(principal.getName());
         return user.getRatings().stream().filter(r -> r.getType() == RatingType.POST && r.getStatus() != 0).collect(Collectors.toSet());
+    }
+
+    @GetMapping("/comment/votes")
+    public Set<RatingConstraint> getCommentVotes(Principal principal) {
+        User user = userService.getByUsername(principal.getName());
+        return user.getRatings().stream().filter(r -> r.getType() == RatingType.COMMENT && r.getStatus() != 0).collect(Collectors.toSet());
     }
 
 }

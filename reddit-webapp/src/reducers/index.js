@@ -2,11 +2,13 @@ import { combineReducers } from "redux";
 import { reducer as formReducer } from "redux-form";
 import authReducer from "./authReducer";
 import postReducer from "./postReducer";
-import voteReducer from "./voteReducer";
+import postVoterReducer from "./postVoterReducer";
+import commentVoterReducer from "./commentVoterReducer";
 
 export default combineReducers({
     auth: authReducer,
     posts: postReducer,
-    votes: voteReducer,
+    votes: postVoterReducer,
+    commentVotes: commentVoterReducer,
     form: formReducer
 });
