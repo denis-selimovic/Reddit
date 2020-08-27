@@ -1,4 +1,4 @@
-import {SIGN_OUT, SIGN_IN, FETCH_POSTS, UPVOTE, DOWNVOTE} from "./types";
+import {SIGN_OUT, SIGN_IN, FETCH_POSTS, UPVOTE, DOWNVOTE, FETCH_POST_UPVOTES, FETCH_POST_DOWNVOTES} from "./types";
 import reddit from "../api/reddit";
 import history from "../history";
 import { getUser, addUser, removeUser } from "../user";
@@ -39,7 +39,7 @@ export const upvote = id => async dispatch => {
                 Authorization: `Bearer ${getUser().token}`
             }
         });
-        dispatch( {type: UPVOTE, payload: response.data} );
+        dispatch({ type: UPVOTE, payload: response.data });
     }
     catch (err) {
 
@@ -53,9 +53,27 @@ export const downvote = id => async dispatch => {
                 Authorization: `Bearer ${getUser().token}`
             }
         });
-        dispatch( {type: DOWNVOTE, payload: response.data} );
+        dispatch({ type: DOWNVOTE, payload: response.data });
     }
     catch (err) {
 
     }
+};
+
+export const fetchPostUpvotes = () => async dispatch => {
+    const response = await reddit.get("/api/users/post/upvotes", {
+        headers: {
+            Authorization: `Bearer ${getUser().token}`
+        }
+    });
+    dispatch({ type: FETCH_POST_UPVOTES, payload: response.data })
+};
+
+export const fetchPostDownvotes = () => async dispatch => {
+    const response = await reddit.get("/api/users/post/downvotes", {
+        headers: {
+            Authorization: `Bearer ${getUser().token}`
+        }
+    });
+    dispatch({ type: FETCH_POST_DOWNVOTES, payload: response.data })
 };
