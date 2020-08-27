@@ -4,7 +4,9 @@ import {
     FETCH_POSTS,
     UPVOTE,
     DOWNVOTE,
-    FETCH_POST_VOTES, FETCH_COMMENT_VOTES, FETCH_TOPICS, SUBSCRIBE, UNSUBSCRIBE
+    FETCH_TOPICS,
+    SUBSCRIBE,
+    UNSUBSCRIBE
 } from "./types";
 import reddit from "../api/reddit";
 import history from "../history";
@@ -65,24 +67,6 @@ export const downvote = id => async dispatch => {
     catch (err) {
 
     }
-};
-
-export const fetchPostVotes = () => async dispatch => {
-    const response = await reddit.get("/api/users/post/votes", {
-        headers: {
-            Authorization: `Bearer ${getUser().token}`
-        }
-    });
-    dispatch({ type: FETCH_POST_VOTES, payload: response.data })
-};
-
-export const fetchCommentVotes = () => async dispatch => {
-    const response = await reddit.get("/api/users/comment/votes", {
-        headers: {
-            Authorization: `Bearer ${getUser().token}`
-        }
-    });
-    dispatch({ type: FETCH_COMMENT_VOTES, payload: response.data });
 };
 
 export const fetchTopics = () => async dispatch => {
