@@ -2,13 +2,13 @@ import React from "react";
 import ReactDOM from 'react-dom';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
-import { signIn } from '../../actions/index'
+import { fetchOnSignIn } from '../../actions/index'
 import Login from "../forms/Login";
 import history from "../../history";
 
 const LoginModal = props => {
 
-    const onSubmit = formValues => props.signIn(formValues);
+    const onSubmit = formValues => props.fetchOnSignIn(formValues);
     const onBackgroundClicked = e => props.onBackgroundClicked();
 
     return ReactDOM.createPortal(
@@ -61,4 +61,4 @@ const LoginModal = props => {
     );
 };
 
-export default connect(null, { signIn })(LoginModal);
+export default connect(null, { fetchOnSignIn })(LoginModal);
