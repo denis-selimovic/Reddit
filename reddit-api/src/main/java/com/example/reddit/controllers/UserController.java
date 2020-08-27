@@ -1,6 +1,7 @@
 package com.example.reddit.controllers;
 
 import com.example.reddit.domain.RatingConstraint;
+import com.example.reddit.domain.Topic;
 import com.example.reddit.domain.User;
 import com.example.reddit.domain.enums.RatingType;
 import com.example.reddit.service.UserService;
@@ -34,6 +35,12 @@ public class UserController {
     public Set<RatingConstraint> getCommentVotes(Principal principal) {
         User user = userService.getByUsername(principal.getName());
         return user.getRatings().stream().filter(r -> r.getType() == RatingType.COMMENT && r.getStatus() != 0).collect(Collectors.toSet());
+    }
+
+    @GetMapping("/topics")
+    public Set<Topic> getTopic(Principal principal) {
+        User user = userService.getByUsername(principal.getName());
+        return user.getTopics();
     }
 
 }
