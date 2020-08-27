@@ -1,6 +1,8 @@
 package com.example.reddit.domain;
 
+import com.example.reddit.util.serializers.PostSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -8,6 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "posts")
+@JsonSerialize(using = PostSerializer.class)
 public class Post extends BaseEntity {
 
     private String title;

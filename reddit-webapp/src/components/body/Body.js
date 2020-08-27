@@ -5,7 +5,7 @@ import PostList from './PostList';
 class Body extends React.Component {
     render() {
         return (
-            <div className="ui container">
+            <div className="ui container" style={{backgroundColor: '#d1d7e8'}}>
                 <PostFilter/>
                 <div className="ui horizontal divider"/>
                 <PostList/>

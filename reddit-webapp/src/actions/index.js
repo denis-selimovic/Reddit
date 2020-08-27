@@ -15,6 +15,6 @@ export const signOut = () => {
 };
 
 export const fetchPosts = () => async dispatch => {
-    const response = await reddit.post("/api/posts");
+    const response = await reddit.get("/api/guest/posts");
     dispatch( {type: FETCH_POSTS, payload: response.data} );
 };

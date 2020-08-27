@@ -10,9 +10,9 @@ class PostList extends React.Component {
     }
 
     renderPosts() {
-        return this.props.stream.map(p => {
+        return this.props.posts.map(p => {
             return (
-                <div className="item">
+                <div className="segment" key={p.id}>
                     <Post post={p}/>
                 </div>
             );
@@ -21,15 +21,21 @@ class PostList extends React.Component {
 
     render() {
         return (
-            <div className="ui relaxed divided list">
-                {this.renderPosts()}
+            <div className="ui grid">
+                <div className="four wide column"/>
+                <div className="eight wide column">
+                    <div className="ui vertical segments">
+                        {this.renderPosts()}
+                    </div>
+                </div>
+                <div className="four wide column"/>
             </div>
         );
     }
 }
 
 const mapStateToProps = state => {
-    return { posts: state.posts };
+    return { posts: Object.values(state.posts) };
 }
 
 export default connect(mapStateToProps, { fetchPosts })(PostList);
