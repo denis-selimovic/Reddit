@@ -4,7 +4,7 @@ import {
     FETCH_POSTS,
     UPVOTE,
     DOWNVOTE,
-    FETCH_POST_VOTES, FETCH_COMMENT_VOTES, FETCH_TOPICS
+    FETCH_POST_VOTES, FETCH_COMMENT_VOTES, FETCH_TOPICS, SUBSCRIBE, UNSUBSCRIBE
 } from "./types";
 import reddit from "../api/reddit";
 import history from "../history";
@@ -94,4 +94,26 @@ export const fetchTopics = () => async dispatch => {
     dispatch({ type: FETCH_TOPICS, payload: response.data });
 };
 
+export const subscribeToTopic = topic => async dispatch => {
+    try {
+        const response = await reddit.post(`/api/topic/subscribe?topic=${topic}`, {}, {
+            headers: {
+                Authorization: `Bearer ${getUser().token}`
+            }
+        });
+        dispatch({ type: SUBSCRIBE, payload: response.data });
+    }
+    catch (err) {}
+};
 
+export const unsubscribeToTopic = topic => async dispatch => {
+    try {
+        const response = await reddit.post(`/api/topic/unsubscribe?topic=${topic}`, {}, {
+            headers: {
+                Authorization: `Bearer ${getUser().token}`
+            }
+        });
+        dispatch({ type: UNSUBSCRIBE, payload: response.data });
+    }
+    catch (err) {}
+};
