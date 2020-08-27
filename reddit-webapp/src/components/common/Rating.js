@@ -1,16 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import { fetchPostVotes } from "../../actions";
 import { getUser } from "../../user";
 import history from "../../history";
 
 const Rating = props => {
 
-    const { post, upvote, downvote, fetchPostVotes, votedPosts, votes } = props;
-
-    useEffect(() => {
-        if (getUser()) fetchPostVotes();
-    }, [fetchPostVotes, votes]);
+    const { post, upvote, downvote, votedPosts} = props;
 
     const onUpvote = () => {
         checkCredentials();
@@ -30,7 +25,7 @@ const Rating = props => {
     const getVoteIconColor = status => {
         let showColor = false;
         votedPosts.forEach(v => {
-            if (v[0] && v[0].post === post.id && v[0].status === status) showColor = true;
+            if (v.post === post.id && v.status === status) showColor = true;
         })
         return (showColor && getUser()) ? 'orange' : '';
     }
@@ -50,8 +45,7 @@ const Rating = props => {
 
 const mapStateToProps = state => {
     const votedPosts = Object.values(state.votes)
-    const votes = state.posts;
-    return { votedPosts, votes }
+    return { votedPosts }
 };
 
-export default connect(mapStateToProps, { fetchPostVotes })(Rating);
+export default connect(mapStateToProps)(Rating);

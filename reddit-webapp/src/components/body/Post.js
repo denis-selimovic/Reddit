@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
-import { upvote, downvote, fetchTopics } from "../../actions";
+import { upvote, downvote, fetchTopics, subscribeToTopic, unsubscribeToTopic } from "../../actions";
 import Rating from "../common/Rating";
 import ToggleButton from "../common/ToggleButton";
 
-const Post = ({ post, upvote, downvote, fetchTopics }) => {
+const Post = ({ post, upvote, downvote, fetchTopics, subscribeToTopic, unsubscribeToTopic }) => {
     return (
             <div className="ui icon message" style={{backgroundColor: 'white'}}>
                 <Rating post={post} upvote={upvote} downvote={downvote}/>
@@ -24,9 +24,9 @@ const Post = ({ post, upvote, downvote, fetchTopics }) => {
                         </Link>
                     </div>
                 </div>
-                <ToggleButton text="Join" invertedText="Leave" callback={} invertedCallback={} action={fetchTopics}/>
+                <ToggleButton text="Join" invertedText="Leave" callback={subscribeToTopic} invertedCallback={unsubscribeToTopic} action={fetchTopics}/>
             </div>
     );
 };
 
-export default connect(null, { upvote, downvote, fetchTopics })(Post);
+export default connect(null, { upvote, downvote, fetchTopics, subscribeToTopic, unsubscribeToTopic })(Post);
