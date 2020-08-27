@@ -1,8 +1,11 @@
 import React from "react";
+import { connect } from "react-redux";
+import { fetchPostUpvotes, fetchPostDownvotes } from "../../actions";
 import { getUser } from "../../user";
 import history from "../../history";
+import mapStateToProps from "react-redux/lib/connect/mapStateToProps";
 
-export default ({ post, upvote, downvote }) => {
+const Rating = ({ post, upvote, downvote }) => {
 
     const onUpvote = () => {
         checkCredentials();
@@ -32,3 +35,4 @@ export default ({ post, upvote, downvote }) => {
     );
 }
 
+export default connect(mapStateToProps, { fetchPostDownvotes, fetchPostUpvotes })(Rating);
