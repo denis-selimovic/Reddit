@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from 'react-redux';
 import GuestHeader from "./GuestHeader";
 import UserHeader from "./UserHeader";
 import { getUser } from "../../user";
@@ -29,8 +28,4 @@ class Header extends React.Component {
     }
 }
 
-const mapStateToProps = state => {
-    return { isSignedIn: state.auth.isSignedIn }
-};
-
-export default connect(mapStateToProps)(Header);
+export default Header;
