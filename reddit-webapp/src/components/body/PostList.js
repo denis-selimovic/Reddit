@@ -1,19 +1,21 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { fetchPosts } from "../../actions";
+import { fetchPosts, fetchTopics } from "../../actions";
+import { getUser } from "../../user";
 import Post from "./Post";
 
 class PostList extends React.Component {
 
     componentDidMount() {
         this.props.fetchPosts();
+        if(getUser()) this.props.fetchTopics();
     }
 
     renderPosts() {
         return this.props.posts.map(p => {
             return (
                 <div className="segment" key={p.id}>
-                    <Post post={p}/>
+                    <Post post={p} topics={this.props.topics}/>
                 </div>
             );
         });
@@ -35,7 +37,7 @@ class PostList extends React.Component {
 }
 
 const mapStateToProps = state => {
-    return { posts: Object.values(state.posts) };
+    return { posts: Object.values(state.posts), topics: Object.values(state.userTopics) };
 }
 
-export default connect(mapStateToProps, { fetchPosts })(PostList);
+export default connect(mapStateToProps, { fetchPosts, fetchTopics })(PostList);

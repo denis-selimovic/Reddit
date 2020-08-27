@@ -1,11 +1,22 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
-import { upvote, downvote, fetchTopics, subscribeToTopic, unsubscribeToTopic } from "../../actions";
+import { upvote, downvote, subscribeToTopic, unsubscribeToTopic } from "../../actions";
+import { getUser } from "../../user";
 import Rating from "../common/Rating";
 import ToggleButton from "../common/ToggleButton";
 
-const Post = ({ post, upvote, downvote, fetchTopics, subscribeToTopic, unsubscribeToTopic }) => {
+const Post = ({ post, upvote, downvote, subscribeToTopic, unsubscribeToTopic, topics }) => {
+
+    const toggle = () => {
+        if (!getUser()) return true;
+        let show = true;
+        topics.forEach(t => {
+            if (t.id === post.topic.id) show = false;
+        });
+        return show;
+    };
+
     return (
             <div className="ui icon message" style={{backgroundColor: 'white'}}>
                 <Rating post={post} upvote={upvote} downvote={downvote}/>
@@ -24,9 +35,9 @@ const Post = ({ post, upvote, downvote, fetchTopics, subscribeToTopic, unsubscri
                         </Link>
                     </div>
                 </div>
-                <ToggleButton text="Join" invertedText="Leave" callback={subscribeToTopic} invertedCallback={unsubscribeToTopic} action={fetchTopics}/>
+                <ToggleButton text="Join" invertedText="Leave" callback={subscribeToTopic} invertedCallback={unsubscribeToTopic} toggle={toggle()} name={post.topic.name}/>
             </div>
     );
 };
 
-export default connect(null, { upvote, downvote, fetchTopics, subscribeToTopic, unsubscribeToTopic })(Post);
+export default connect(null, { upvote, downvote, subscribeToTopic, unsubscribeToTopic })(Post);
