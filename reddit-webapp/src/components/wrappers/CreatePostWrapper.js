@@ -1,5 +1,7 @@
 import React from "react";
 import CreatePost from "../forms/CreatePost";
+import { connect } from 'react-redux';
+import { createPost } from "../../actions";
 
 class CreatePostWrapper extends React.Component {
 
@@ -10,7 +12,7 @@ class CreatePostWrapper extends React.Component {
                     <div className="column"/>
                     <div className="column">
                         <div className="ui header"><h2>Create a post</h2></div>
-                        <CreatePost onSubmit={formValues => console.log(formValues)}/>
+                        <CreatePost onSubmit={this.props.createPost}/>
                     </div>
                     <div className="column"/>
                 </div>
@@ -19,4 +21,4 @@ class CreatePostWrapper extends React.Component {
     }
 }
 
-export default CreatePostWrapper;
+export default connect(null, { createPost })(CreatePostWrapper);
