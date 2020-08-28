@@ -6,7 +6,7 @@ import {
     DOWNVOTE,
     FETCH_TOPICS,
     SUBSCRIBE,
-    UNSUBSCRIBE, FETCH_USER_POSTS, CREATE_POST
+    UNSUBSCRIBE, FETCH_USER_POSTS, CREATE_POST, DELETE_POST
 } from "./types";
 import reddit from "../api/reddit";
 import history from "../history";
@@ -149,6 +149,6 @@ export const deletePost = (topic, post) => async dispatch => {
             Authorization: `Bearer ${getUser().token}`
         }
     });
-    dispatch({ type: CREATE_POST, payload: post});
+    await dispatch({ type: DELETE_POST, payload: post});
     history.push("/");
 };
