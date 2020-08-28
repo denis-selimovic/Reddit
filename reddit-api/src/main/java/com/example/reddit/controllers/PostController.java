@@ -1,5 +1,6 @@
 package com.example.reddit.controllers;
 
+import com.example.reddit.domain.Comment;
 import com.example.reddit.domain.Post;
 import com.example.reddit.domain.Topic;
 import com.example.reddit.domain.User;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/posts")
@@ -97,5 +99,14 @@ public class PostController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GenericResponse("Post already down voted"));
         }
         return ResponseEntity.ok(postService.downVote(post.get(), user, userService.isUpVoted(user, post.get().getId(), RatingType.POST)));
+    }
+
+    @GetMapping("/comments/{id}")
+    public ResponseEntity<?> getPostComments(@PathVariable(name = "id") Long id) {
+        Optional<Post> p = postService.get(id);
+        if (p.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GenericResponse("Post does not exist"));
+        }
+        return ResponseEntity.ok(p.get().getComments());
     }
 }

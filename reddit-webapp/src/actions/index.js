@@ -152,3 +152,5 @@ export const deletePost = (topic, post) => async dispatch => {
     await dispatch({ type: DELETE_POST, payload: post});
     history.push("/");
 };
+
+export const fetchComments = 
