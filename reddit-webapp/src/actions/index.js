@@ -110,7 +110,7 @@ export const unsubscribeToTopic = topic => async dispatch => {
 
 export const fetchUserPosts = () => async dispatch => {
     try {
-        const response = await reddit.get(`/api/users/post`, {
+        const response = await reddit.get(`/api/users/posts`, {
             headers: {
                 Authorization: `Bearer ${getUser().token}`
             }

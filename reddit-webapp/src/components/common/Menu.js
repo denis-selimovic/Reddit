@@ -2,17 +2,20 @@ import React from "react";
 
 const Menu = ({ options }) => {
 
-    console.log(options);
+
+    const renderOptions = () => {
+        return Object.keys(options).map(key => {
+            return (
+                <div key={key} className="item" data-value={key} onClick={e => options[key].callback()}>{options[key].value}</div>
+            );
+        });
+    };
 
     return (
-        <div className="ui fluid selection dropdown">
+        <div className="ui simple fluid selection dropdown" style={{zIndex: '10'}}>
             <input type="hidden" name="user" />
             <i className="dropdown icon"/>
-            <div className="default text">Posts</div>
-            <div className="menu">
-                <div className="item" data-value="jenny">Jenny Hess</div>
-                <div className="item" data-value="elliot">Elliot Fu</div>
-            </div>
+            <div className="menu">{renderOptions()}</div>
         </div>
     );
 };
