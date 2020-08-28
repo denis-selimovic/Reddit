@@ -1,27 +1,19 @@
 import React from "react";
-import { Select } from "antd";
-
-const { Option } = Select;
 
 const Menu = ({ options }) => {
 
-    const onChange = value => {
-        console.log(value);
-        options[value].callback();
-    };
-
-    const renderOptions = () => {
-        Object.keys(options).forEach(key => {
-            return (
-                <Option value={key}>options[key].value</Option>
-            );
-        });
-    };
+    console.log(options);
 
     return (
-        <Select onChange={onChange} style={{width: '120px'}} >
-            {renderOptions()}
-        </Select>
+        <div className="ui fluid selection dropdown">
+            <input type="hidden" name="user" />
+            <i className="dropdown icon"/>
+            <div className="default text">Posts</div>
+            <div className="menu">
+                <div className="item" data-value="jenny">Jenny Hess</div>
+                <div className="item" data-value="elliot">Elliot Fu</div>
+            </div>
+        </div>
     );
 };
 
