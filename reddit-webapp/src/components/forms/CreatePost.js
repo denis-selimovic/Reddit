@@ -2,6 +2,7 @@ import React from 'react';
 import { Field, reduxForm } from "redux-form";
 import { connect } from 'react-redux';
 import { fetchTopics } from "../../actions";
+import history from "../../history";
 import { Select } from 'antd';
 import 'antd/dist/antd.css';
 
@@ -69,7 +70,10 @@ class CreatePost extends React.Component {
                 <Field name="topic" component={this.renderDropdown} topics={this.props.topics}/>
                 <Field label="Enter post title" name="title" type="text" component={this.renderInput}/>
                 <Field label="Enter text" name="text" component={this.renderTextArea}/>
-                <button className="ui button primary">Create</button>
+                <div className="ui right floated buttons">
+                    <button className="ui red button" style={{marginRight: '10px'}} onClick={() => history.push("/")}>Cancel</button>
+                    <button type={"submit"} className="ui button primary">Create</button>
+                </div>
             </form>
         );
     }
