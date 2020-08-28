@@ -64,7 +64,6 @@ class CreatePost extends React.Component {
     onSubmit = formValues => this.props.onSubmit(formValues);
 
     render() {
-        console.log(this.props.topics);
         return (
             <form className="ui form error" onSubmit={this.props.handleSubmit(this.onSubmit)}>
                 <Field name="topic" component={this.renderDropdown} topics={this.props.topics}/>

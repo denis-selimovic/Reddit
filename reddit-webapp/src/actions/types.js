@@ -8,3 +8,4 @@ export const DOWNVOTE = 'DOWNVOTE';
 export const FETCH_TOPICS = 'FETCH_TOPICS';
 export const SUBSCRIBE = 'SUBSCRIBE';
 export const UNSUBSCRIBE = 'UNSUBSCRIBE';
+export const CREATE_POST = 'CREATE_POST';

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {DOWNVOTE, FETCH_POSTS, FETCH_SUBSCRIBED_POSTS, FETCH_USER_POSTS, UPVOTE} from "../actions/types";
+import {CREATE_POST, DOWNVOTE, FETCH_POSTS, FETCH_SUBSCRIBED_POSTS, FETCH_USER_POSTS, UPVOTE} from "../actions/types";
 
 export default (state = {}, action) => {
     switch (action.type) {
@@ -13,6 +13,8 @@ export default (state = {}, action) => {
             return { ..._.mapKeys(action.payload, 'id') };
         case FETCH_SUBSCRIBED_POSTS:
             return { ..._.mapKeys(action.payload, 'id') };
+        case CREATE_POST:
+            return { ...state, [action.payload.id]: action.payload };
         default:
             return state;
     }

@@ -6,7 +6,7 @@ import {
     DOWNVOTE,
     FETCH_TOPICS,
     SUBSCRIBE,
-    UNSUBSCRIBE, FETCH_USER_POSTS
+    UNSUBSCRIBE, FETCH_USER_POSTS, CREATE_POST
 } from "./types";
 import reddit from "../api/reddit";
 import history from "../history";
@@ -130,4 +130,14 @@ export const fetchSubscribedPosts = () => async dispatch => {
         dispatch({ type: FETCH_USER_POSTS, payload: response.data });
     }
     catch (err) {}
+};
+
+export const createPost = formValues => async dispatch => {
+    const { topic, title, text } = formValues;
+    const response = await reddit.get(`/api/posts/create?topic=${topic}`, { title, text }, {
+        headers: {
+            Authorization: `Bearer ${getUser().token}`
+        }
+    });
+    dispatch({ type: CREATE_POST, payload: response.data });
 };
