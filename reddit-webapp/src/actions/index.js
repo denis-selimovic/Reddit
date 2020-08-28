@@ -134,10 +134,11 @@ export const fetchSubscribedPosts = () => async dispatch => {
 
 export const createPost = formValues => async dispatch => {
     const { topic, title, text } = formValues;
-    const response = await reddit.get(`/api/posts/create?topic=${topic}`, { title, text }, {
+    const response = await reddit.post(`/api/posts/create?topic=${topic}`, { title, text }, {
         headers: {
             Authorization: `Bearer ${getUser().token}`
         }
     });
     dispatch({ type: CREATE_POST, payload: response.data });
+    history.push("/");
 };
