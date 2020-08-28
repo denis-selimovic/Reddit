@@ -17,6 +17,13 @@ const Post = ({ post, upvote, downvote, subscribeToTopic, unsubscribeToTopic, to
         return show;
     };
 
+    const renderDeleteButton = () => {
+        if (post.user.id !== getUser().id) return null;
+        return (
+            <Link to={`/delete/${post.id}`} className="ui red button">Delete</Link>
+        );
+    };
+
     return (
             <div className="ui icon message" style={{backgroundColor: 'white'}}>
                 <Rating post={post} upvote={upvote} downvote={downvote}/>
@@ -33,6 +40,7 @@ const Post = ({ post, upvote, downvote, subscribeToTopic, unsubscribeToTopic, to
                             <i className="comment icon"/>
                             {`${post.comments.length} comments`}
                         </Link>
+                        {renderDeleteButton()}
                     </div>
                 </div>
                 <ToggleButton text="Join" invertedText="Leave" callback={subscribeToTopic} invertedCallback={unsubscribeToTopic} toggle={toggle()} name={post.topic.name}/>
