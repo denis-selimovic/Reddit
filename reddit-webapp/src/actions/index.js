@@ -6,7 +6,7 @@ import {
     DOWNVOTE,
     FETCH_TOPICS,
     SUBSCRIBE,
-    UNSUBSCRIBE, FETCH_USER_POSTS, CREATE_POST, DELETE_POST
+    UNSUBSCRIBE, FETCH_USER_POSTS, CREATE_POST, DELETE_POST, FETCH_COMMENTS
 } from "./types";
 import reddit from "../api/reddit";
 import history from "../history";
@@ -153,4 +153,11 @@ export const deletePost = (topic, post) => async dispatch => {
     history.push("/");
 };
 
-export const fetchComments = 
+export const fetchComments = id => async dispatch => {
+   const response = await reddit.get(`/api/posts/comments/${id}`, {
+       headers: {
+           Authorization: `Bearer ${getUser().token}`
+       }
+    });
+   dispatch({ type: FETCH_COMMENTS, payload: response.data });
+};
