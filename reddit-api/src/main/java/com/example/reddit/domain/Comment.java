@@ -1,6 +1,8 @@
 package com.example.reddit.domain;
 
+import com.example.reddit.util.serializers.CommentSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -8,23 +10,21 @@ import java.util.Set;
 
 @Entity
 @Table(name = "comments")
+@JsonSerialize(using = CommentSerializer.class)
 public class Comment extends BaseEntity {
 
     @Lob
     private String text;
 
-    @JsonIgnore
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Post post;
 
-    @JsonIgnore
     @ManyToOne(cascade = CascadeType.PERSIST)
     private User user;
 
     @OneToMany(mappedBy = "parent")
     private Set<Comment> comments = new HashSet<>();
 
-    @JsonIgnore
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Comment parent = null;
 
