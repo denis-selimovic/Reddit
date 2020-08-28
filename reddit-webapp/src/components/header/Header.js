@@ -3,9 +3,17 @@ import { connect } from "react-redux";
 import GuestHeader from "./GuestHeader";
 import UserHeader from "./UserHeader";
 import { getUser } from "../../user";
+import { fetchPosts } from "../../actions";
+import Menu from "../common/Menu";
 
 class Header extends React.Component {
 
+    options = {
+        all: {
+            value: 'All',
+            callback: this.props.fetchPosts
+        }
+    }
 
     render() {
         const user = getUser();
@@ -18,6 +26,7 @@ class Header extends React.Component {
                 <div className="item header">
                     <h3>Reddit Clone</h3>
                 </div>
+                {getUser() ? <Menu options={this.options}/> : null}
                 <div className="right menu">
                     <div className="item">
                         <div className="ui icon input">
@@ -36,4 +45,4 @@ const mapStateToProps = state => {
     return { isSignedIn: state.auth.isSignedIn };
 };
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, { fetchPosts })(Header);

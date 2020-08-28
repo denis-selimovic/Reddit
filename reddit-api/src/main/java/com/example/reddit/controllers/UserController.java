@@ -1,5 +1,6 @@
 package com.example.reddit.controllers;
 
+import com.example.reddit.domain.Post;
 import com.example.reddit.domain.RatingConstraint;
 import com.example.reddit.domain.Topic;
 import com.example.reddit.domain.User;
@@ -43,4 +44,9 @@ public class UserController {
         return user.getTopics();
     }
 
+    @GetMapping("/posts")
+    public Set<Post> getPosts(Principal principal) {
+        User user = userService.getByUsername(principal.getName());
+        return user.getPosts();
+    }
 }

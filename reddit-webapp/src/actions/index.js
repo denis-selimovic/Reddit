@@ -6,7 +6,7 @@ import {
     DOWNVOTE,
     FETCH_TOPICS,
     SUBSCRIBE,
-    UNSUBSCRIBE
+    UNSUBSCRIBE, FETCH_USER_POSTS
 } from "./types";
 import reddit from "../api/reddit";
 import history from "../history";
@@ -104,6 +104,18 @@ export const unsubscribeToTopic = topic => async dispatch => {
             }
         });
         dispatch({ type: UNSUBSCRIBE, payload: response.data });
+    }
+    catch (err) {}
+};
+
+export const fetchUserPosts = () => async dispatch => {
+    try {
+        const response = await reddit.get(`/api/users/post`, {
+            headers: {
+                Authorization: `Bearer ${getUser().token}`
+            }
+        });
+        dispatch({ type: FETCH_USER_POSTS, payload: response.data });
     }
     catch (err) {}
 };
