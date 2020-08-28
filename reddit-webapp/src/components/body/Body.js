@@ -1,15 +1,24 @@
 import React  from 'react';
 import { connect } from 'react-redux';
 import { fetchPosts, fetchTopics } from "../../actions";
-import { getUser } from "../../user";
+import { getUser, removeUser } from "../../user";
 import PostFilter from "./PostFilter";
 import PostList from './PostList';
 
 class Body extends React.Component {
 
+    clearStorage = () => {
+        removeUser();
+    };
+
     componentDidMount() {
         this.props.fetchPosts();
         if(getUser()) this.props.fetchTopics();
+        window.addEventListener('beforeunload', removeUser)
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('beforeunload', removeUser);
     }
 
     render() {
