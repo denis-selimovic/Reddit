@@ -1,17 +1,31 @@
-import React, { useEffect } from 'react';
+import React  from 'react';
+import { connect } from 'react-redux';
+import { fetchPosts, fetchTopics } from "../../actions";
+import { getUser } from "../../user";
 import PostFilter from "./PostFilter";
 import PostList from './PostList';
 
-const Body = props => {
+class Body extends React.Component {
 
-    return (
-        <div className="ui container" style={{backgroundColor: '#d1d7e8'}}>
-            <PostFilter/>
-            <div className="ui horizontal divider"/>
-            <PostList/>
-        </div>
-    );
+    componentDidMount() {
+        this.props.fetchPosts();
+        if(getUser()) this.props.fetchTopics();
+    }
+
+    render() {
+        return (
+            <div className="ui container" style={{backgroundColor: '#d1d7e8'}}>
+                <PostFilter/>
+                <div className="ui horizontal divider"/>
+                <PostList posts={this.props.posts} topics={this.props.topics}/>
+            </div>
+        );
+    }
 
 }
 
-export default Body;
+const mapStateToProps = state => {
+    return { posts: Object.values(state.posts), topics: Object.values(state.userTopics) };
+};
+
+export default connect(mapStateToProps, { fetchPosts, fetchTopics })(Body);

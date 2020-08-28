@@ -1,15 +1,7 @@
 import React from "react";
-import { connect } from 'react-redux';
-import { fetchPosts, fetchTopics } from "../../actions";
-import { getUser } from "../../user";
 import Post from "./Post";
 
 class PostList extends React.Component {
-
-    componentDidMount() {
-        this.props.fetchPosts();
-        if(getUser()) this.props.fetchTopics();
-    }
 
     renderPosts() {
         return this.props.posts.map(p => {
@@ -36,8 +28,4 @@ class PostList extends React.Component {
     }
 }
 
-const mapStateToProps = state => {
-    return { posts: Object.values(state.posts), topics: Object.values(state.userTopics) };
-}
-
-export default connect(mapStateToProps, { fetchPosts, fetchTopics })(PostList);
+export default PostList;
