@@ -18,7 +18,7 @@ const Post = ({ post, upvote, downvote, subscribeToTopic, unsubscribeToTopic, to
     };
 
     const renderDeleteButton = () => {
-        if (post.user.id !== getUser().id) return null;
+        if (!getUser() || post.user.id !== getUser().id) return null;
         return (
             <Link to={`/delete/${post.topic.name}/${post.id}`} className="ui red button">Delete</Link>
         );
