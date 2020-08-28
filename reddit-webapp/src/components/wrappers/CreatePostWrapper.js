@@ -5,7 +5,16 @@ class CreatePostWrapper extends React.Component {
 
     render() {
         return (
-            <CreatePost/>
+            <div className="ui grid">
+                <div className="three column row">
+                    <div className="column"/>
+                    <div className="column">
+                        <div className="ui header"><h2>Create a post</h2></div>
+                        <CreatePost onSubmit={formValues => console.log(formValues)}/>
+                    </div>
+                    <div className="column"/>
+                </div>
+            </div>
         );
     }
 }

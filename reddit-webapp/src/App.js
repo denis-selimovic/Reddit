@@ -12,7 +12,7 @@ function App() {
       <Router history={history}>
           <div>
               <Header/>
-              <Body/>
+              <Route exact path="/" component={Body}/>
               <Route exact path="/login" component={() => <LoginModal onBackgroundClicked={() => history.push("/")} />}/>
               <Route exact path="/submit" component={CreatePostWrapper}/>
           </div>
