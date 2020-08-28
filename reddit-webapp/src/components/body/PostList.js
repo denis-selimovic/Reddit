@@ -1,31 +1,27 @@
 import React from "react";
 import Post from "./Post";
 
-class PostList extends React.Component {
+const PostList = ({ posts, topics }) => {
 
-    renderPosts() {
-        return this.props.posts.map(p => {
+    const renderPosts = () => {
+        return posts.map(p => {
             return (
                 <div className="segment" key={p.id}>
-                    <Post post={p} topics={this.props.topics}/>
+                    <Post post={p} topics={topics}/>
                 </div>
             );
         });
     }
 
-    render() {
-        return (
-            <div className="ui grid">
-                <div className="four wide column"/>
-                <div className="eight wide column">
-                    <div className="ui vertical segments">
-                        {this.renderPosts()}
-                    </div>
-                </div>
-                <div className="four wide column"/>
+    return (
+        <div className="ui grid">
+            <div className="four wide column"/>
+            <div className="eight wide column">
+                <div className="ui vertical segments">{renderPosts()}</div>
             </div>
-        );
-    }
+            <div className="four wide column"/>
+        </div>
+    );
 }
 
 export default PostList;
