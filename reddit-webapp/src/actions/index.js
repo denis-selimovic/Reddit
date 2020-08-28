@@ -22,7 +22,7 @@ export const signIn = formValues => {
         };
     }
     return async dispatch => {
-        const response = await reddit.post("/api/auth/login", formValues);
+        const response = await reddit.post("/api/wrappers/login", formValues);
         addUser(response.data);
         dispatch({ type:SIGN_IN, payload: response.data });
         history.push("/");
