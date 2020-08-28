@@ -9,6 +9,6 @@ export default combineReducers({
     auth: authReducer,
     posts: postReducer,
     userTopics: userTopicsReducer,
-    comments: combineReducers,
+    comments: commentReducer,
     form: formReducer
 });
