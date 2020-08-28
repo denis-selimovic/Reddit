@@ -142,3 +142,13 @@ export const createPost = formValues => async dispatch => {
     dispatch({ type: CREATE_POST, payload: response.data });
     history.push("/");
 };
+
+export const deletePost = (topic, post) => async dispatch => {
+    await reddit.delete(`/api/posts/delete?topic=${topic}&post=${post}`, {
+        headers: {
+            Authorization: `Bearer ${getUser().token}`
+        }
+    });
+    dispatch({ type: CREATE_POST, payload: post});
+    history.push("/");
+};
