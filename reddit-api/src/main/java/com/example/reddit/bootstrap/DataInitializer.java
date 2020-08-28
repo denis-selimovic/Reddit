@@ -39,15 +39,16 @@ public class DataInitializer implements CommandLineRunner {
         User user3 = new User("bar","bar","bar@bar.com");
         user3.getRoles().add(roleService.getRole(RoleName.ROLE_USER));
         Topic topic = new Topic("Topic");
+        Topic topic2 = new Topic("Topic 2");
         user.addTopic(topic);
         user2.addTopic(topic);
-        user3.addTopic(topic);
+        user3.addTopic(topic2);
         userRepository.save(user);
         userRepository.save(user2);
         userRepository.save(user3);
         Post post = new Post("Foo", "Bar");
         post.setUser(user3);
-        post.setTopic(topic);
+        post.setTopic(topic2);
         Post post2 = new Post("Tell me something about yourself?", "Bar");
         post2.setUser(user2);
         post2.setTopic(topic);

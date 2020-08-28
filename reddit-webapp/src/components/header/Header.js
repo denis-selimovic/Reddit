@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import GuestHeader from "./GuestHeader";
 import UserHeader from "./UserHeader";
 import { getUser } from "../../user";
-import { fetchPosts, fetchUserPosts } from "../../actions";
+import { fetchPosts, fetchUserPosts, fetchSubscribedPosts } from "../../actions";
 import Menu from "../common/Menu";
 
 class Header extends React.Component {
@@ -16,6 +16,10 @@ class Header extends React.Component {
         myPosts: {
             value: 'My posts',
             callback: this.props.fetchUserPosts
+        },
+        subscribed: {
+            value: 'My topics',
+            callback: this.props.fetchSubscribedPosts
         }
     }
 
@@ -51,4 +55,4 @@ const mapStateToProps = state => {
     return { isSignedIn: state.auth.isSignedIn };
 };
 
-export default connect(mapStateToProps, { fetchPosts, fetchUserPosts })(Header);
+export default connect(mapStateToProps, { fetchPosts, fetchUserPosts, fetchSubscribedPosts })(Header);
