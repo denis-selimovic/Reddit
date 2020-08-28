@@ -8,6 +8,13 @@ const UserHeader = props => {
     return (
         <div className="item">
             <div className="item">
+                <div className="ui icon buttons">
+                    <Link to="/submit" className="ui button">
+                        <i className="pencil alternate icon"/>
+                    </Link>
+                </div>
+            </div>
+            <div className="item">
                 <Link to="/profile">
                     <i className="user large icon"/>
                 </Link>
