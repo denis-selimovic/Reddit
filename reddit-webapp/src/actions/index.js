@@ -119,3 +119,15 @@ export const fetchUserPosts = () => async dispatch => {
     }
     catch (err) {}
 };
+
+export const fetchSubscribedPosts = () => async dispatch => {
+    try {
+        const response = await reddit.get(`/api/users/subscribed`, {
+            headers: {
+                Authorization: `Bearer ${getUser().token}`
+            }
+        });
+        dispatch({ type: FETCH_USER_POSTS, payload: response.data });
+    }
+    catch (err) {}
+};

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -48,5 +49,13 @@ public class UserController {
     public Set<Post> getPosts(Principal principal) {
         User user = userService.getByUsername(principal.getName());
         return user.getPosts();
+    }
+
+    @GetMapping("/subscribed")
+    public Set<Post> getSubscribedPosts(Principal principal) {
+        User user = userService.getByUsername(principal.getName());
+        Set<Post> posts = new HashSet<>();
+        user.getTopics().forEach(t -> posts.addAll(t.getPosts()));
+        return posts;
     }
 }
