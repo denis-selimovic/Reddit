@@ -5,7 +5,8 @@ import { fetchComments } from "../../actions";
 class PostDetails extends React.Component {
 
     componentDidMount() {
-        this.props.fetchComments();
+        const { id } = this.props.match.params;
+        this.props.fetchComments(id);
     }
     render() {
         return (
@@ -15,7 +16,7 @@ class PostDetails extends React.Component {
 }
 
 const mapStateToProps = state => {
-    return { comments: state.comments };
+    return { comments: Object.values(state.comments) };
 };
 
 export default connect(mapStateToProps, { fetchComments })(PostDetails);
