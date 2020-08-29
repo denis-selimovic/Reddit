@@ -14,7 +14,7 @@ class PostDetails extends React.Component {
 
     renderComments() {
         const { comments } = this.props.post;
-        return comments.map(c => <Comment comment={c}/>);
+        return comments.map(c => <Comment comment={c} key={c.id}/>);
     }
 
     render() {
