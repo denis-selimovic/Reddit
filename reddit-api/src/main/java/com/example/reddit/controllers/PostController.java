@@ -79,7 +79,9 @@ public class PostController {
         if (post.get().getUser().getId().equals(user.getId())) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GenericResponse("Cannot upvote your own post"));
         }
-        return ResponseEntity.ok(postService.upVote(post.get(), user, userService.isDownVoted(user, post.get().getId(), RatingType.POST)));
+        boolean downVoted = userService.isDownVoted(user, post.get().getId(), RatingType.POST);
+        boolean upVoted = userService.isUpVoted(user, post.get().getId(), RatingType.POST);
+        return ResponseEntity.ok(postService.upVote(post.get(), user, downVoted, upVoted));
     }
 
     @PostMapping("/downvote")
@@ -92,7 +94,9 @@ public class PostController {
         if (post.get().getUser().getId().equals(user.getId())) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GenericResponse("Cannot downvote your own post"));
         }
-        return ResponseEntity.ok(postService.downVote(post.get(), user, userService.isUpVoted(user, post.get().getId(), RatingType.POST)));
+        boolean downVoted = userService.isDownVoted(user, post.get().getId(), RatingType.POST);
+        boolean upVoted = userService.isUpVoted(user, post.get().getId(), RatingType.POST);
+        return ResponseEntity.ok(postService.downVote(post.get(), user, downVoted, upVoted));
     }
 
     @GetMapping("/comments/{id}")

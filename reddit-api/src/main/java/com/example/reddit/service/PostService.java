@@ -47,27 +47,35 @@ public class PostService {
         postRepository.delete(post);
     }
 
-    public Post upVote(Post p, User user, boolean voted) {
-        if (!voted) {
-            p.getRating().upVote();
-            user = user.votePost(p.getId(), 1);
+    public Post upVote(Post p, User user, boolean downVoted, boolean upVoted) {
+        if (upVoted) {
+            p.getRating().removeUpVote();
+            user = user.votePost(p.getId(), 0);
         }
-        else {
+        else if (downVoted) {
             p.getRating().removeDownVote();
             user = user.votePost(p.getId(), 0);
+        }
+        else {
+            p.getRating().upVote();
+            user = user.votePost(p.getId(), 1);
         }
         userRepository.save(user);
         return postRepository.save(p);
     }
 
-    public Post downVote(Post p, User user, boolean voted) {
-        if(!voted) {
-            p.getRating().downVote();
-            user = user.votePost(p.getId(), -1);
-        }
-        else {
+    public Post downVote(Post p, User user, boolean downVoted, boolean upVoted) {
+        if (upVoted) {
             p.getRating().removeUpVote();
             user = user.votePost(p.getId(), 0);
+        }
+        else if (downVoted) {
+            p.getRating().removeDownVote();
+            user = user.votePost(p.getId(), 0);
+        }
+        else {
+            p.getRating().downVote();
+            user = user.votePost(p.getId(), -1);
         }
         userRepository.save(user);
         return postRepository.save(p);
