@@ -1,17 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux"
-import { upvote, downvote } from "../../actions";
+import { upvoteComment, downvoteComment } from "../../actions";
 import Rating from "../common/Rating";
 
-const Comment = ({ comment, upvote, downvote }) => {
+const Comment = ({ comment, upvoteComment, downvoteComment }) => {
 
     const renderComment = c => {
         return (
             <div className="comment" style={{height: '80px'}}>
                 <div className="content">
                     <div className="avatar" style={{height: '70px', marginTop: '-20px', marginRight: '20px'}}>
-                        <Rating post={c} upvote={upvote} downvote={downvote}/>
+                        <Rating post={c} upvote={upvoteComment} downvote={downvoteComment}/>
                     </div>
                     <Link to={`/users/${c.user.id}`} className="author">{`u/${c.user.username}`}</Link>
                     <div className="metadata">
@@ -36,4 +36,4 @@ const Comment = ({ comment, upvote, downvote }) => {
     return renderComment(comment);
 };
 
-export default connect(null, { upvote, downvote })(Comment);
+export default connect(null, { upvoteComment, downvoteComment })(Comment);
