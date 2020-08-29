@@ -54,7 +54,7 @@ class PostDetails extends React.Component {
 }
 
 const mapStateToProps = state => {
-    return { post: state.selectedPost, comments: state.comments };
+    return { post: state.selectedPost };
 };
 
 export default connect(mapStateToProps, { fetchPost, upvote, downvote })(PostDetails);
