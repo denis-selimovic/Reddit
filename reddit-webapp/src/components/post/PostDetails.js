@@ -1,12 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchComments } from "../../actions";
+import { fetchPost } from "../../actions";
 
 class PostDetails extends React.Component {
 
     componentDidMount() {
         const { id } = this.props.match.params;
-        this.props.fetchComments(id);
+        this.props.fetchPost(id);
     }
     render() {
         return (
@@ -16,7 +16,7 @@ class PostDetails extends React.Component {
 }
 
 const mapStateToProps = state => {
-    return { comments: Object.values(state.comments) };
+    return { post: state.selectedPost };
 };
 
-export default connect(mapStateToProps, { fetchComments })(PostDetails);
+export default connect(mapStateToProps, { fetchPost })(PostDetails);
