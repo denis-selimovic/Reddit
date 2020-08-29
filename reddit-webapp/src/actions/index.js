@@ -2,7 +2,7 @@ import {
     SIGN_OUT, SIGN_IN, FETCH_POSTS,
     UPVOTE, DOWNVOTE, FETCH_TOPICS,
     SUBSCRIBE, UNSUBSCRIBE, FETCH_USER_POSTS,
-    CREATE_POST, DELETE_POST, FETCH_POST
+    CREATE_POST, DELETE_POST, FETCH_POST, UPVOTE_COMMENT
 } from "./types";
 import reddit from "../api/reddit";
 import history from "../history";
@@ -152,4 +152,28 @@ export const deletePost = (topic, post) => async dispatch => {
 export const fetchPost = id => async dispatch => {
     const response = await reddit.get(`/api/guest/post/${id}`);
     dispatch({ type: FETCH_POST, payload: response.data });
+};
+
+export const upvoteComment = id => async dispatch => {
+    try {
+        const response = await reddit.post(`/api/comments/upvote?comment=${id}`, {}, {
+            headers: {
+                Authorization: `Bearer ${getUser().token}`
+            }
+        });
+        dispatch({ type: UPVOTE_COMMENT, payload: response.data });
+    }
+    catch (err) {}
+};
+
+export const downvoteComment = id => async dispatch => {
+    try {
+        const response = await reddit.post(`/api/comments/downvote?comment=${id}`, {}, {
+            headers: {
+                Authorization: `Bearer ${getUser().token}`
+            }
+        });
+        dispatch({ type: UPVOTE_COMMENT, payload: response.data });
+    }
+    catch (err) {}
 };
