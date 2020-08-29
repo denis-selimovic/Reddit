@@ -1,4 +1,4 @@
-import {DOWNVOTE, DOWNVOTE_COMMENT, FETCH_POST, UPVOTE, UPVOTE_COMMENT} from "../actions/types";
+import {CREATE_COMMENT, DOWNVOTE, DOWNVOTE_COMMENT, FETCH_POST, UPVOTE, UPVOTE_COMMENT} from "../actions/types";
 
 export default (state = {}, action) => {
     switch (action.type) {
@@ -14,6 +14,9 @@ export default (state = {}, action) => {
             return action.payload;
         case DOWNVOTE:
             return action.payload;
+        case CREATE_COMMENT:
+            const addedComments = state.comments.push(action.payload);
+            return { ...state, comments: addedComments};
         default:
             return state;
     }
