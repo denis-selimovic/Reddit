@@ -15,7 +15,7 @@ export default (state = {}, action) => {
         case DOWNVOTE:
             return action.payload;
         case CREATE_COMMENT:
-            const addedComments = state.comments.push(action.payload);
+            const addedComments = state.comments.concat(action.payload);
             return { ...state, comments: addedComments};
         default:
             return state;
