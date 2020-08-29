@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { fetchPost, upvote, downvote } from "../../actions";
 import Rating from "../common/Rating";
 import Comment from "./Comment";
+import CreateComment from "../forms/CreateComment";
 
 class PostDetails extends React.Component {
 
@@ -44,6 +45,8 @@ class PostDetails extends React.Component {
                             </div>
                         </div>
                     </div>
+                    <CreateComment id={post.id} onSubmit={}/>
+                    <div className="ui horizontal divider"/>
                     <div className="ui horizontal divider"/>
                     <div className="ui threaded comments">{this.renderComments()}</div>
                 </div>

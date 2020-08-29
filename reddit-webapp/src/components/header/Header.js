@@ -4,6 +4,7 @@ import GuestHeader from "./GuestHeader";
 import UserHeader from "./UserHeader";
 import { getUser } from "../../user";
 import { fetchPosts, fetchUserPosts, fetchSubscribedPosts } from "../../actions";
+import history from "../../history";
 import Menu from "../common/Menu";
 
 class Header extends React.Component {
@@ -31,7 +32,7 @@ class Header extends React.Component {
                 <div className="item">
                     <i className="terminal icon"/>
                 </div>
-                <div className="item header">
+                <div className="item header" onClick={() => history.push("/")} style={{cursor: 'pointer'}}>
                     <h3>Reddit Clone</h3>
                 </div>
                 <div className="item" style={{width: '200px'}}>
