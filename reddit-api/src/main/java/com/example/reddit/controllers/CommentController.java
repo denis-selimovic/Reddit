@@ -75,27 +75,15 @@ public class CommentController {
 
     @PostMapping("/upvote")
     public ResponseEntity<?> upvote(@RequestParam(name = "comment") Long id, Principal principal) {
-        Optional<Comment> comment = commentService.findById(id);
-        User user = userService.getByUsername(principal.getName());
-        if (comment.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GenericResponse("Comment does not exist"));
-        }
-        if (userService.isUpVoted(user, comment.get().getId(), RatingType.COMMENT)) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GenericResponse("Comment already up voted"));
-        }
-        return ResponseEntity.ok(commentService.upVote(comment.get(), user, userService.isDownVoted(user, comment.get().getId(), RatingType.COMMENT)));
+        Comment comment = commentService.tryUpVote(id, userService.getByUsername(principal.getName()));
+        if (comment == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GenericResponse("Comment does not exist"));
+        return ResponseEntity.ok(comment);
     }
 
     @PostMapping("/downvote")
     public ResponseEntity<?> downvote(@RequestParam(name = "comment") Long id, Principal principal) {
-        Optional<Comment> comment = commentService.findById(id);
-        User user = userService.getByUsername(principal.getName());
-        if (comment.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GenericResponse("Comment does not exist"));
-        }
-        if (userService.isDownVoted(user, comment.get().getId(), RatingType.COMMENT)) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GenericResponse("Comment already down voted"));
-        }
-        return ResponseEntity.ok(commentService.downVote(comment.get(), user, userService.isUpVoted(user, comment.get().getId(), RatingType.COMMENT)));
+        Comment comment = commentService.tryDownVote(id, userService.getByUsername(principal.getName()));
+        if (comment == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GenericResponse("Comment does not exist"));
+        return ResponseEntity.ok(comment);
     }
 }
