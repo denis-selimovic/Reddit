@@ -154,10 +154,6 @@ export const deletePost = (topic, post) => async dispatch => {
 };
 
 export const fetchComments = id => async dispatch => {
-   const response = await reddit.get(`/api/posts/comments/${id}`, {
-       headers: {
-           Authorization: `Bearer ${getUser().token}`
-       }
-    });
+   const response = await reddit.get(`/api/guest/post/${id}/comments`);
    dispatch({ type: FETCH_COMMENTS, payload: response.data });
 };
