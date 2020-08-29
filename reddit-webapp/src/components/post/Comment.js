@@ -11,7 +11,7 @@ const Comment = ({ comment, upvoteComment, downvoteComment }) => {
             <div className="comment" style={{height: '80px'}}>
                 <div className="content">
                     <div className="avatar" style={{height: '70px', marginTop: '-20px', marginRight: '20px'}}>
-                        <Rating post={comment} upvote={upvoteComment} downvote={downvoteComment}/>
+                        <Rating id={comment.id} upvote={upvoteComment} downvote={downvoteComment} status={comment.rating.likes - comment.rating.dislikes}/>
                     </div>
                     <Link to={`/users/${c.user.id}`} className="author">{`u/${c.user.username}`}</Link>
                     <div className="metadata">

@@ -25,7 +25,7 @@ class PostDetails extends React.Component {
                 <div className="four wide column"/>
                 <div className="eight wide column">
                     <div className="ui icon message">
-                        <Rating post={post} upvote={upvote} downvote={downvote}/>
+                        <Rating id={post.id} upvote={upvote} downvote={downvote} status={post.rating.likes - post.rating.dislikes}/>
                         <div className="content" style={{paddingLeft: '10px', paddingRight: '10px'}}>
                         <span>
                             <p>

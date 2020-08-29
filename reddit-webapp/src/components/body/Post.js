@@ -26,7 +26,7 @@ const Post = ({ post, upvote, downvote, subscribeToTopic, unsubscribeToTopic, to
 
     return (
             <div className="ui icon message" style={{backgroundColor: 'white'}}>
-                <Rating post={post} upvote={upvote} downvote={downvote}/>
+                <Rating id={post.id} upvote={upvote} downvote={downvote} status={post.rating.likes - post.rating.dislikes}/>
                 <div className="content" style={{paddingLeft: '10px', paddingRight: '10px'}}>
                     <span>
                         <p>

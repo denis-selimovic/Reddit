@@ -1,19 +1,19 @@
-import React from "react";
+import React  from "react";
 import { getUser } from "../../user";
 import history from "../../history";
 
 const Rating = props => {
 
-    const { post, upvote, downvote} = props;
+    const { id, upvote, downvote, status} = props;
 
     const onUpvote = () => {
         checkCredentials();
-        upvote(post.id);
+        upvote(id);
     };
 
     const onDownvote = () => {
         checkCredentials();
-        downvote(post.id);
+        downvote(id);
     };
 
     const checkCredentials = () => {
@@ -25,7 +25,7 @@ const Rating = props => {
             <button onClick={onUpvote} className={`ui icon button`} style={{backgroundColor: 'white'}}>
                 <i className={`chevron up icon`}/>
             </button>
-            <button disabled={true} className="ui button" style={{backgroundColor: 'white'}}>{post.rating.likes - post.rating.dislikes}</button>
+            <button disabled={true} className="ui button" style={{backgroundColor: 'white'}}>{status}</button>
             <button onClick={onDownvote} className={`ui icon button`} style={{backgroundColor: 'white'}}>
                 <i className={`chevron down icon`}/>
             </button>
