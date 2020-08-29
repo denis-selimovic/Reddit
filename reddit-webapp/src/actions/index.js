@@ -2,7 +2,7 @@ import {
     SIGN_OUT, SIGN_IN, FETCH_POSTS,
     UPVOTE, DOWNVOTE, FETCH_TOPICS,
     SUBSCRIBE, UNSUBSCRIBE, FETCH_USER_POSTS,
-    CREATE_POST, DELETE_POST, FETCH_POST, UPVOTE_COMMENT
+    CREATE_POST, DELETE_POST, FETCH_POST, UPVOTE_COMMENT, DOWNVOTE_COMMENT
 } from "./types";
 import reddit from "../api/reddit";
 import history from "../history";
@@ -173,7 +173,7 @@ export const downvoteComment = id => async dispatch => {
                 Authorization: `Bearer ${getUser().token}`
             }
         });
-        dispatch({ type: UPVOTE_COMMENT, payload: response.data });
+        dispatch({ type: DOWNVOTE_COMMENT, payload: response.data });
     }
     catch (err) {}
 };
