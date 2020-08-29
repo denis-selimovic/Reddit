@@ -26,6 +26,7 @@ public class CommentSerializer extends JsonSerializer<Comment> {
         jsonGenerator.writeArrayFieldStart("children");
         for(Comment c: comment.getComments()) jsonGenerator.writeObject(c);
         jsonGenerator.writeEndArray();
+        jsonGenerator.writeObjectField("rating", comment.getRating());
         jsonGenerator.writeEndObject();
     }
 }
