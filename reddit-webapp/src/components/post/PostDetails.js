@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { fetchPost, upvote, downvote } from "../../actions";
+import { fetchPost, upvote, downvote, createComment } from "../../actions";
 import Rating from "../common/Rating";
 import Comment from "./Comment";
 import CreateComment from "../forms/CreateComment";
@@ -45,7 +45,7 @@ class PostDetails extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <CreateComment id={post.id} onSubmit={}/>
+                    <CreateComment id={post.id} onSubmit={this.props.createComment}/>
                     <div className="ui horizontal divider"/>
                     <div className="ui horizontal divider"/>
                     <div className="ui threaded comments">{this.renderComments()}</div>
@@ -60,4 +60,4 @@ const mapStateToProps = state => {
     return { post: state.selectedPost };
 };
 
-export default connect(mapStateToProps, { fetchPost, upvote, downvote })(PostDetails);
+export default connect(mapStateToProps, { fetchPost, upvote, downvote, createComment })(PostDetails);

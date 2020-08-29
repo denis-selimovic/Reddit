@@ -3,9 +3,7 @@ import { Field, reduxForm } from "redux-form";
 
 class CreateComment extends React.Component {
 
-    onSubmit = formValues => {
-        this.props.onSubmit({ post: this.props.id, text: formValues.text });
-    }
+    onSubmit = formValues => this.props.onSubmit({ post: this.props.id, text: formValues.text });
 
     renderInput = ({ input, meta }) => {
         const className = `field ${meta.error && meta.touched ? 'error' : ''}`;
