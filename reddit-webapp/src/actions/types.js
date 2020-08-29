@@ -10,4 +10,4 @@ export const SUBSCRIBE = 'SUBSCRIBE';
 export const UNSUBSCRIBE = 'UNSUBSCRIBE';
 export const CREATE_POST = 'CREATE_POST';
 export const DELETE_POST = 'DELETE_POST';
-export const FETCH_COMMENTS = 'FETCH_COMMENTS';
+export const FETCH_POST = 'FETCH_POST';

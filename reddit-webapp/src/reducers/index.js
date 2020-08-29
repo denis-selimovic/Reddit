@@ -3,12 +3,12 @@ import { reducer as formReducer } from "redux-form";
 import authReducer from "./authReducer";
 import postReducer from "./postReducer";
 import userTopicsReducer from "./userTopicsReducer";
-import commentReducer from "./commentReducer";
+import selectedPostReducer from "./selectedPostReducer";
 
 export default combineReducers({
     auth: authReducer,
     posts: postReducer,
     userTopics: userTopicsReducer,
-    comments: commentReducer,
+    selectedPost: selectedPostReducer,
     form: formReducer
 });

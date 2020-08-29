@@ -27,7 +27,7 @@ public class GuestController {
     public Set<Post> getPosts() {
         return postService.findAll();
     }
-    
+
     @GetMapping("/post/{id}/comments")
     public ResponseEntity<?> getPostComments(@PathVariable(name = "id") Long id) {
         Optional<Post> p = postService.get(id);
@@ -35,5 +35,14 @@ public class GuestController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GenericResponse("Post does not exist"));
         }
         return ResponseEntity.ok(p.get().getComments());
+    }
+
+    @GetMapping("/post/{id}")
+    public ResponseEntity<?> getPostById(@PathVariable(name = "id") Long id) {
+        Optional<Post> p = postService.get(id);
+        if (p.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GenericResponse("Post does not exist"));
+        }
+        return ResponseEntity.ok(p.get());
     }
 }
