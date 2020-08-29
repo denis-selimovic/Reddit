@@ -6,6 +6,7 @@ import history from "./history";
 import Body from "./components/body/Body";
 import CreatePostWrapper from "./components/wrappers/CreatePostWrapper";
 import DeleteModal from "./components/wrappers/DeleteModal";
+import PostDetails from "./components/post/PostDetails";
 
 function App(props) {
   return (
@@ -17,6 +18,7 @@ function App(props) {
               <Route exact path="/login" component={() => <LoginModal onBackgroundClicked={() => history.push("/")} />}/>
               <Route exact path="/submit" component={CreatePostWrapper}/>
               <Route exact path="/delete/:topic/:id" component={DeleteModal}/>
+              <Route exact path="/posts/:id" component={PostDetails}/>
           </div>
       </Router>
     </div>

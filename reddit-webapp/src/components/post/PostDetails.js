@@ -5,7 +5,12 @@ import { fetchComments } from "../../actions";
 class PostDetails extends React.Component {
 
     componentDidMount() {
-
+        this.props.fetchComments();
+    }
+    render() {
+        return (
+            <div>PostDetails</div>
+        );
     }
 }
 
