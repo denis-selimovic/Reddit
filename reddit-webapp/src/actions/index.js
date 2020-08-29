@@ -2,7 +2,7 @@ import {
     SIGN_OUT, SIGN_IN, FETCH_POSTS,
     UPVOTE, DOWNVOTE, FETCH_TOPICS,
     SUBSCRIBE, UNSUBSCRIBE, FETCH_USER_POSTS,
-    CREATE_POST, DELETE_POST, FETCH_POST, UPVOTE_COMMENT, DOWNVOTE_COMMENT
+    CREATE_POST, DELETE_POST, FETCH_POST, UPVOTE_COMMENT, DOWNVOTE_COMMENT, CREATE_COMMENT
 } from "./types";
 import reddit from "../api/reddit";
 import history from "../history";
@@ -174,6 +174,18 @@ export const downvoteComment = id => async dispatch => {
             }
         });
         dispatch({ type: DOWNVOTE_COMMENT, payload: response.data });
+    }
+    catch (err) {}
+};
+
+export const createComment = formValues => async dispatch => {
+    try {
+        const response = await reddit.post(`/api/comments/comment`, formValues, {
+            headers: {
+                Authorization: `Bearer ${getUser().token}`
+            }
+        });
+        dispatch({ type: CREATE_COMMENT, payload: response.data });
     }
     catch (err) {}
 };
