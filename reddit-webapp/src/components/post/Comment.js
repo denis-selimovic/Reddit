@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux"
 import { upvoteComment, downvoteComment } from "../../actions";
 import Rating from "../common/Rating";
-import CreateComment from "../forms/CreateComment";
 
 const Comment = ({ comment, upvoteComment, downvoteComment }) => {
 
@@ -20,8 +19,9 @@ const Comment = ({ comment, upvoteComment, downvoteComment }) => {
                     </div>
                     <div className="text">{c.text}</div>
                     <div className="actions">
-                        <div className="reply" style={{color: 'grey', cursor: 'pointer'}}>Reply</div>
+                        <Link to={`/comments/reply/${c.id}`} className="reply" style={{color: 'grey', cursor: 'pointer'}}>Reply</Link>
                     </div>
+
                 </div>
                 {c.children.length > 0 ? renderCommentWithReplies(c.comments) : null}
             </div>

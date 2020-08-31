@@ -7,6 +7,7 @@ import Body from "./components/body/Body";
 import CreatePostWrapper from "./components/wrappers/CreatePostWrapper";
 import DeleteModal from "./components/wrappers/DeleteModal";
 import PostDetails from "./components/post/PostDetails";
+import ReplyModal from "./components/wrappers/ReplyModal";
 
 function App(props) {
   return (
@@ -19,6 +20,7 @@ function App(props) {
               <Route exact path="/submit" component={CreatePostWrapper}/>
               <Route exact path="/delete/:topic/:id" component={DeleteModal}/>
               <Route exact path="/posts/:id" component={PostDetails}/>
+              <Route exact path="/comments/reply/:id" component={ReplyModal}/>
           </div>
       </Router>
     </div>
