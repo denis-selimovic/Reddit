@@ -189,3 +189,15 @@ export const createComment = formValues => async dispatch => {
     }
     catch (err) {}
 };
+
+export const replyComment = (id, formValues) => async dispatch => {
+    try {
+        const response = await reddit.post(`/api/comments/reply/${id}`, formValues, {
+            headers: {
+                Authorization: `Bearer ${getUser().token}`
+            }
+        });
+        dispatch({ type: CREATE_COMMENT, payload: response.data });
+    }
+    catch (err) {}
+};
