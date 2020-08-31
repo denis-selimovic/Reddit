@@ -3,9 +3,12 @@ import ReactDOM from "react-dom";
 import history from "../../history";
 import CreateComment from "../forms/CreateComment";
 
-const ReplyModal = props => {
+const ReplyModal = ({ match, location }) => {
 
-    const cancel = () => history.push("/")
+    const { id } = match.params;
+    const postId = location.search.match(/\d+/);
+
+    const cancel = () => history.push(`/posts/${postId}`)
     const action = () => {}
 
     return ReactDOM.createPortal(

@@ -7,6 +7,12 @@ import Rating from "../common/Rating";
 const Comment = ({ comment, upvoteComment, downvoteComment }) => {
 
     const renderComment = c => {
+
+        const to = {
+            pathname: `/comments/reply/${c.id}`,
+            search: `?post=${c.post.id}`
+        }
+
         return (
             <div className="comment" style={{height: '80px'}}>
                 <div className="content">
@@ -19,7 +25,7 @@ const Comment = ({ comment, upvoteComment, downvoteComment }) => {
                     </div>
                     <div className="text">{c.text}</div>
                     <div className="actions">
-                        <Link to={`/comments/reply/${c.id}`} className="reply" style={{color: 'grey', cursor: 'pointer'}}>Reply</Link>
+                        <Link to={to} className="reply" style={{color: 'grey', cursor: 'pointer'}}>Reply</Link>
                     </div>
 
                 </div>
