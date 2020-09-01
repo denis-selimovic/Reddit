@@ -98,7 +98,8 @@ public class CommentService {
         if (comment.isEmpty()) return null;
         boolean upVoted = userService.isUpVoted(user, comment.get().getId(), RatingType.COMMENT);
         boolean downVoted = userService.isDownVoted(user, comment.get().getId(), RatingType.COMMENT);
-        return upVote(comment.get(), user, downVoted, upVoted);
+        Comment upVotedComment = upVote(comment.get(), user, downVoted, upVoted);
+        return findParent(upVotedComment);
     }
 
     public Comment tryDownVote(Long id, User user) {
@@ -106,6 +107,13 @@ public class CommentService {
         if (comment.isEmpty()) return null;
         boolean upVoted = userService.isUpVoted(user, comment.get().getId(), RatingType.COMMENT);
         boolean downVoted = userService.isDownVoted(user, comment.get().getId(), RatingType.COMMENT);
-        return downVote(comment.get(), user, downVoted, upVoted);
+        Comment downVotedComment = downVote(comment.get(), user, downVoted, upVoted);
+        return findParent(downVotedComment);
+    }
+
+    private Comment findParent(Comment comment) {
+        Comment parent = comment;
+        while (parent.getParent() != null) parent = parent.getParent();
+        return parent;
     }
 }
