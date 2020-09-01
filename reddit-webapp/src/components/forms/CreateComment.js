@@ -1,9 +1,12 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
+import { getUser } from "../../user";
+import history from "../../history";
 
 class CreateComment extends React.Component {
 
     onSubmit = formValues => {
+        if (!getUser()) history.push("/login");
         this.props.onSubmit({ post: this.props.id, text: formValues.text });
         this.props.reset();
     }

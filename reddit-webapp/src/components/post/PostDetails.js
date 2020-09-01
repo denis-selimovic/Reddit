@@ -37,12 +37,6 @@ class PostDetails extends React.Component {
                             <h2 className="header" style={{marginBottom: '10px', marginTop: '10px'}}>{post.title}</h2>
                             <div className="text">{post.text}</div>
                             <div className="ui horizontal divider"/>
-                            <div className="meta">
-                                <button className="ui basic button">
-                                    <i className="comment icon"/>
-                                    {`${post.comments.length} comments`}
-                                </button>
-                            </div>
                         </div>
                     </div>
                     <CreateComment id={post.id} onSubmit={this.props.createComment}/>
