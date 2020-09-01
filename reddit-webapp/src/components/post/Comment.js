@@ -12,12 +12,11 @@ const Comment = ({ comment, upvoteComment, downvoteComment }) => {
             pathname: `/comments/reply/${c.id}`,
             search: `?post=${c.post.id}`
         }
-
         return (
-            <div className="comment" style={{height: '80px'}}>
+            <div className="comment">
                 <div className="content">
                     <div className="avatar" style={{height: '70px', marginTop: '-20px', marginRight: '20px'}}>
-                        <Rating id={comment.id} upvote={upvoteComment} downvote={downvoteComment} status={comment.rating.likes - comment.rating.dislikes}/>
+                        <Rating id={c.id} upvote={upvoteComment} downvote={downvoteComment} status={c.rating.likes - c.rating.dislikes}/>
                     </div>
                     <Link to={`/users/${c.user.id}`} className="author">{`u/${c.user.username}`}</Link>
                     <div className="metadata">
@@ -29,7 +28,7 @@ const Comment = ({ comment, upvoteComment, downvoteComment }) => {
                     </div>
 
                 </div>
-                {c.children.length > 0 ? renderCommentWithReplies(c.comments) : null}
+                {c.children.length > 0 ? renderCommentWithReplies(c.children) : <div className="ui horizontal divider"/>}
             </div>
         );
     };

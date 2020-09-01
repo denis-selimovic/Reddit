@@ -27,10 +27,11 @@ export default (state = {}, action) => {
             return { ...state, comments: addedComments};
         case REPLY_COMMENT:
             const { id, data } = action.payload;
-            const repliedComments = state.comments.filter(c => {
+            const repliedComments = state.comments.map(c => {
                 if (c.id === id) c.children.concat(data);
                 return c;
             });
+            console.log(repliedComments);
             return { ...state, comments: repliedComments };
         default:
             return state;

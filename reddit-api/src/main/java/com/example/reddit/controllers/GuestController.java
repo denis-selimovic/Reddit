@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/guest")
@@ -43,6 +44,8 @@ public class GuestController {
         if (p.isEmpty()) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GenericResponse("Post does not exist"));
         }
-        return ResponseEntity.ok(p.get());
+        Post post = p.get();
+        post.setComments(post.getComments().stream().filter(c -> c.getParent() == null).collect(Collectors.toSet()));
+        return ResponseEntity.ok(post);
     }
 }
