@@ -1,4 +1,12 @@
-import {CREATE_COMMENT, DOWNVOTE, DOWNVOTE_COMMENT, FETCH_POST, UPVOTE, UPVOTE_COMMENT} from "../actions/types";
+import {
+    CREATE_COMMENT,
+    DOWNVOTE,
+    DOWNVOTE_COMMENT,
+    FETCH_POST,
+    REPLY_COMMENT,
+    UPVOTE,
+    UPVOTE_COMMENT
+} from "../actions/types";
 
 export default (state = {}, action) => {
     switch (action.type) {
@@ -17,6 +25,13 @@ export default (state = {}, action) => {
         case CREATE_COMMENT:
             const addedComments = state.comments.concat(action.payload);
             return { ...state, comments: addedComments};
+        case REPLY_COMMENT:
+            const { id, data } = action.payload;
+            const repliedComments = state.comments.filter(c => {
+                if (c.id === id) c.children.concat(data);
+                return c;
+            });
+            return { ...state, comments: repliedComments };
         default:
             return state;
     }
