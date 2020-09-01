@@ -31,7 +31,6 @@ export default (state = {}, action) => {
                 if (c.id === id) c.children.concat(data);
                 return c;
             });
-            console.log(repliedComments);
             return { ...state, comments: repliedComments };
         default:
             return state;
