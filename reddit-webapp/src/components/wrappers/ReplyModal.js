@@ -11,7 +11,10 @@ const ReplyModal = ({ match, location, replyComment }) => {
     const postId = location.search.match(/\d+/)[0];
 
     const cancel = () => history.push(`/posts/${postId}`)
-    const action = formValues => replyComment(id, { post: postId, text: formValues.text });
+    const action = async formValues => {
+        await replyComment(id, { post: postId, text: formValues.text });
+        cancel();
+    }
 
     return ReactDOM.createPortal(
         <div className="ui dimmer modals visible active" onClick={() => cancel()}>
