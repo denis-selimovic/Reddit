@@ -13,10 +13,18 @@ export default (state = {}, action) => {
         case FETCH_POST:
             return action.payload;
         case UPVOTE_COMMENT:
-            const commentsAfterUpvote = state.comments.map(c => (c.id === action.payload.id ? action.payload : c));
+            let commentsAfterUpvote = state.comments.map(c => (c.id === action.payload.id ? action.payload : c));
+            commentsAfterUpvote = commentsAfterUpvote.map(c => {
+                c.children = c.children.map(child => (child.id === action.payload.id ? action.payload : child));
+                return c;
+            });
             return { ...state, comments: commentsAfterUpvote };
         case DOWNVOTE_COMMENT:
-            const comments = state.comments.map(c => (c.id === action.payload.id ? action.payload : c));
+            let comments = state.comments.map(c => (c.id === action.payload.id ? action.payload : c));
+            comments = comments.map(c => {
+                c.children = c.children.map(child => (child.id === action.payload.id ? action.payload : child));
+                return c;
+            });
             return { ...state, comments };
         case UPVOTE:
             return action.payload;
