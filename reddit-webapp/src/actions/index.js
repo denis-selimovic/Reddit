@@ -198,6 +198,7 @@ export const replyComment = (id, formValues) => async dispatch => {
             }
         });
         dispatch({ type: REPLY_COMMENT, payload: { data: response.data, id: id }});
+        history.push(`/posts/${formValues.post}`)
     }
     catch (err) {}
 };
