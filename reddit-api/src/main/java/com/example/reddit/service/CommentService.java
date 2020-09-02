@@ -3,6 +3,7 @@ package com.example.reddit.service;
 import com.example.reddit.domain.Comment;
 import com.example.reddit.domain.Post;
 import com.example.reddit.domain.User;
+import com.example.reddit.domain.enums.ContentStatus;
 import com.example.reddit.domain.enums.RatingType;
 import com.example.reddit.http.response.GenericResponse;
 import com.example.reddit.repository.CommentRepository;
@@ -42,12 +43,10 @@ public class CommentService {
         return commentRepository.findById(id);
     }
 
-    public void delete(Comment comment, User user, Post post) {
-        user.getComments().removeIf(c -> c.getId().equals(comment.getId()));
-        post.getComments().removeIf(c -> c.getId().equals(comment.getId()));
-        userRepository.save(user);
-        postRepository.save(post);
-        commentRepository.delete(comment);
+    public Comment delete(Comment comment) {
+        comment.setStatus(ContentStatus.DELETED);
+        comment.setText("[deleted]");
+        return commentRepository.save(comment);
     }
 
     @Transactional

@@ -3,6 +3,7 @@ package com.example.reddit.controllers;
 import com.example.reddit.domain.Comment;
 import com.example.reddit.domain.Post;
 import com.example.reddit.domain.User;
+import com.example.reddit.domain.enums.ContentStatus;
 import com.example.reddit.domain.enums.RatingType;
 import com.example.reddit.http.request.CreateCommentRequest;
 import com.example.reddit.http.response.GenericResponse;
@@ -51,11 +52,11 @@ public class CommentController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GenericResponse("Comment does not exist"));
         }
         Comment comment = c.get();
-        if (comment.getUser() == null || !comment.getUser().getId().equals(user.getId())) {
+        if (comment.getUser() == null || !comment.getUser().getId().equals(user.getId())
+                || comment.getStatus() == ContentStatus.DELETED) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new GenericResponse("Unauthorized action"));
         }
-        commentService.delete(comment, user, comment.getPost());
-        return ResponseEntity.ok(new GenericResponse("Comment successfully deleted"));
+        return ResponseEntity.ok(commentService.delete(comment));
     }
 
     @PostMapping("/reply/{id}")
