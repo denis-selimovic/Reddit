@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
-import { upvote, downvote, subscribeToTopic, unsubscribeToTopic } from "../../actions";
+import { upvote, downvote, subscribeToTopic, unsubscribeToTopic, deletePost } from "../../actions";
 import { getUser } from "../../user";
 import Rating from "../common/Rating";
 import ToggleButton from "../common/ToggleButton";
 
-const Post = ({ post, upvote, downvote, subscribeToTopic, unsubscribeToTopic, topics }) => {
+const Post = ({ post, upvote, downvote, subscribeToTopic, unsubscribeToTopic, deletePost,topics }) => {
 
     const toggle = () => {
         if (!getUser()) return true;
@@ -19,8 +19,15 @@ const Post = ({ post, upvote, downvote, subscribeToTopic, unsubscribeToTopic, to
 
     const renderDeleteButton = () => {
         if (!getUser() || post.user.id !== getUser().id) return null;
+        const to = {
+            pathname: `/delete/${post.id}`,
+            search: '?type=post',
+            state: {
+                deleteEntry: deletePost
+            }
+        };
         return (
-            <Link to={`/delete/${post.topic.name}/${post.id}`} className="ui red button">Delete</Link>
+            <Link to={to} className="ui red button">Delete</Link>
         );
     };
 
@@ -48,4 +55,4 @@ const Post = ({ post, upvote, downvote, subscribeToTopic, unsubscribeToTopic, to
     );
 };
 
-export default connect(null, { upvote, downvote, subscribeToTopic, unsubscribeToTopic })(Post);
+export default connect(null, { upvote, downvote, subscribeToTopic, unsubscribeToTopic, deletePost })(Post);
