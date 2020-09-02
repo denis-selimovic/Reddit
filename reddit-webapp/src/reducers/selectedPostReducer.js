@@ -1,5 +1,5 @@
 import {
-    CREATE_COMMENT,
+    CREATE_COMMENT, DELETE_COMMENT,
     DOWNVOTE,
     DOWNVOTE_COMMENT,
     FETCH_POST,
@@ -32,6 +32,9 @@ export default (state = {}, action) => {
                 return c;
             });
             return { ...state, comments: repliedComments };
+        case DELETE_COMMENT:
+            const deletedComments = state.comments.map(c => (c.id === action.payload.id) ? action.payload : c);
+            return { ...state, comments: deletedComments};
         default:
             return state;
     }
