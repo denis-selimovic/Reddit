@@ -1,17 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux"
-import { upvoteComment, downvoteComment } from "../../actions";
+import { upvoteComment, downvoteComment, deleteComment } from "../../actions";
 import Rating from "../common/Rating";
 
-const Comment = ({ comment, upvoteComment, downvoteComment }) => {
+const Comment = ({ comment, upvoteComment, downvoteComment, deleteComment }) => {
+
+    const deleteEntry = id => deleteComment(id);
 
     const renderComment = c => {
 
         const to = {
             pathname: `/comments/reply/${c.id}`,
             search: `?post=${c.post.id}`
-        }
+        };
+        const deleteTo = {
+            pathname: `/delete/${c.id}`,
+            search: '?type=comment',
+            state: {
+                text: "Are you sure you want to delete this comment?"
+            },
+            deleteEntry
+        };
         return (
             <div className="comment">
                 <div className="content">
@@ -25,6 +35,7 @@ const Comment = ({ comment, upvoteComment, downvoteComment }) => {
                     <div className="text">{c.text}</div>
                     <div className="actions">
                         <Link to={to} className="reply" style={{color: 'grey', cursor: 'pointer'}}>Reply</Link>
+                        <Link to={deleteTo} className="reply" style={{color: 'grey', cursor: 'pointer'}}>Delete</Link>
                     </div>
 
                 </div>
@@ -41,4 +52,4 @@ const Comment = ({ comment, upvoteComment, downvoteComment }) => {
     return renderComment(comment);
 };
 
-export default connect(null, { upvoteComment, downvoteComment })(Comment);
+export default connect(null, { upvoteComment, downvoteComment, deleteComment })(Comment);
