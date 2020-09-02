@@ -55,10 +55,9 @@ public class PostController {
         }
         Topic topic = post.get().getTopic();
         User user = userService.getByUsername(principal.getName());
-        if (!topicService.isSubscribed(topic, user)) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new GenericResponse("User must be subscribed to topic"));
+        if (!post.get().getUser().getId().equals(user.getId())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new GenericResponse("Not authorized to delete this post"));
         }
-
         postService.delete(post.get(), user, topic);
         return ResponseEntity.ok(new GenericResponse("Post successfully deleted"));
     }
