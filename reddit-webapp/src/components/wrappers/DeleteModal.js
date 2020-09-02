@@ -6,7 +6,8 @@ const DeleteModal = props => {
 
     const { match, location } = props;
     const { id } = match.params;
-    const { text, deleteEntry } = location.state;
+    const { deleteEntry, state } = location;
+    const { text } = state;
     const cancel = () => history.push("/");
     const action = () => deleteEntry(id);
 

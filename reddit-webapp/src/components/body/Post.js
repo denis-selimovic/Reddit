@@ -17,15 +17,19 @@ const Post = ({ post, upvote, downvote, subscribeToTopic, unsubscribeToTopic, de
         return show;
     };
 
+    const deleteEntry = id => {
+        deletePost(id);
+    }
+
     const renderDeleteButton = () => {
         if (!getUser() || post.user.id !== getUser().id) return null;
         const to = {
             pathname: `/delete/${post.id}`,
             search: '?type=post',
             state: {
-                deleteEntry: deletePost,
                 text: "Are you sure you want to delete this post?"
-            }
+            },
+            deleteEntry
         };
         return (
             <Link to={to} className="ui red button">Delete</Link>
