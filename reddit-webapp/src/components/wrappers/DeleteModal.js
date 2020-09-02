@@ -1,15 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { connect } from 'react-redux';
-import { deletePost } from "../../actions";
 import history from "../../history";
 
 const DeleteModal = props => {
 
-    const { deletePost, match } = props;
-    const { entry, id } = match.params;
+    const { deleteEntry, match, text } = props;
+    const { id } = match.params;
     const cancel = () => history.push("/");
-    const action = () => deletePost(entry, id);
+    const action = () => deleteEntry(id);
 
     return ReactDOM.createPortal(
         <div className="ui dimmer modals visible active" onClick={() => cancel()}>
@@ -17,7 +15,7 @@ const DeleteModal = props => {
                 <div className="ui placeholder segment">
                     <div className="ui icon header">
                         <i className="terminal icon"/>
-                        Are you sure you want to delete this post?
+                        {text}
                     </div>
                     <div className="ui buttons">
                         <div className="ui button" onClick={() => cancel()}>Cancel</div>
@@ -30,4 +28,4 @@ const DeleteModal = props => {
     )
 };
 
-export default connect(null, { deletePost })(DeleteModal);
+export default DeleteModal;

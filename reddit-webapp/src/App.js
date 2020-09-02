@@ -18,7 +18,7 @@ function App(props) {
               <Route exact path="/" component={Body}/>
               <Route exact path="/login" component={() => <LoginModal onBackgroundClicked={() => history.push("/")} />}/>
               <Route exact path="/submit" component={CreatePostWrapper}/>
-              <Route exact path="/delete/:entry/:id" component={DeleteModal}/>
+              <Route exact path="/delete/:id" component={DeleteModal}/>
               <Route exact path="/posts/:id" component={PostDetails}/>
               <Route exact path="/comments/reply/:id" component={ReplyModal}/>
           </div>
