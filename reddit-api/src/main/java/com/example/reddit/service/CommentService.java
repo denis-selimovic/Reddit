@@ -46,7 +46,7 @@ public class CommentService {
     public Comment delete(Comment comment) {
         comment.setStatus(ContentStatus.DELETED);
         comment.setText("[deleted]");
-        return commentRepository.save(comment);
+        return findParent(commentRepository.save(comment));
     }
 
     @Transactional
