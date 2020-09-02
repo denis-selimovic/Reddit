@@ -4,8 +4,9 @@ import history from "../../history";
 
 const DeleteModal = props => {
 
-    const { deleteEntry, match, text } = props;
+    const { match, location } = props;
     const { id } = match.params;
+    const { text, deleteEntry } = location.state;
     const cancel = () => history.push("/");
     const action = () => deleteEntry(id);
 

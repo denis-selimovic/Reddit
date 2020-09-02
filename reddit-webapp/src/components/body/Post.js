@@ -23,7 +23,8 @@ const Post = ({ post, upvote, downvote, subscribeToTopic, unsubscribeToTopic, de
             pathname: `/delete/${post.id}`,
             search: '?type=post',
             state: {
-                deleteEntry: deletePost
+                deleteEntry: deletePost,
+                text: "Are you sure you want to delete this post?"
             }
         };
         return (
