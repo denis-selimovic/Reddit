@@ -7,9 +7,9 @@ import history from "../../history";
 const DeleteModal = props => {
 
     const { deletePost, match } = props;
-    const { topic, id } = match.params;
+    const { entry, id } = match.params;
     const cancel = () => history.push("/");
-    const action = () => deletePost(topic, id);
+    const action = () => deletePost(entry, id);
 
     return ReactDOM.createPortal(
         <div className="ui dimmer modals visible active" onClick={() => cancel()}>

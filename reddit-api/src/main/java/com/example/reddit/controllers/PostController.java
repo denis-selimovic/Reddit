@@ -48,17 +48,17 @@ public class PostController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deletePost(@RequestParam(name = "topic") String topicName,
-                                        @RequestParam(name = "post") Long id, Principal principal) {
-        Topic topic = topicService.getByName(topicName);
-        User user = userService.getByUsername(principal.getName());
-        if (!topicService.isSubscribed(topic, user)) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new GenericResponse("User must be subscribed to topic"));
-        }
+    public ResponseEntity<?> deletePost(@RequestParam(name = "post") Long id, Principal principal) {
         Optional<Post> post = postService.get(id);
         if (post.isEmpty()) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GenericResponse("Post does not exist"));
         }
+        Topic topic = post.get().getTopic();
+        User user = userService.getByUsername(principal.getName());
+        if (!topicService.isSubscribed(topic, user)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new GenericResponse("User must be subscribed to topic"));
+        }
+
         postService.delete(post.get(), user, topic);
         return ResponseEntity.ok(new GenericResponse("Post successfully deleted"));
     }
