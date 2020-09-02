@@ -3,10 +3,15 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux"
 import { upvoteComment, downvoteComment, deleteComment } from "../../actions";
 import Rating from "../common/Rating";
+import { getUser } from "../../user";
+import history from "../../history";
 
-const Comment = ({ comment, upvoteComment, downvoteComment, deleteComment }) => {
+const Comment = ({ comment, upvoteComment, downvoteComment, deleteComment, post }) => {
 
-    const deleteEntry = id => deleteComment(id);
+    const deleteEntry = async id => {
+        await deleteComment(id);
+        history.push(`/posts/${post}`);
+    };
 
     const renderComment = c => {
 
@@ -35,7 +40,7 @@ const Comment = ({ comment, upvoteComment, downvoteComment, deleteComment }) => 
                     <div className="text">{c.text}</div>
                     <div className="actions">
                         <Link to={to} className="reply" style={{color: 'grey', cursor: 'pointer'}}>Reply</Link>
-                        <Link to={deleteTo} className="reply" style={{color: 'grey', cursor: 'pointer'}}>Delete</Link>
+                        {(c.user.id === getUser().id) ? <Link to={deleteTo} className="reply" style={{color: 'grey', cursor: 'pointer'}}>Delete</Link> : null}
                     </div>
 
                 </div>
