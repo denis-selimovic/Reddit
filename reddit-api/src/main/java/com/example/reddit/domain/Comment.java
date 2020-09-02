@@ -1,5 +1,6 @@
 package com.example.reddit.domain;
 
+import com.example.reddit.domain.enums.ContentStatus;
 import com.example.reddit.util.serializers.CommentSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -30,6 +31,9 @@ public class Comment extends BaseEntity {
 
     @OneToOne(cascade = CascadeType.ALL)
     private Rating rating = new Rating(0, 0);
+
+    @Enumerated(EnumType.STRING)
+    private ContentStatus status = ContentStatus.REGULAR;
 
     public Comment() {}
 
@@ -86,5 +90,13 @@ public class Comment extends BaseEntity {
 
     public void setRating(Rating rating) {
         this.rating = rating;
+    }
+
+    public ContentStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ContentStatus status) {
+        this.status = status;
     }
 }
