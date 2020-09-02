@@ -1,8 +1,21 @@
 import {
-    SIGN_OUT, SIGN_IN, FETCH_POSTS,
-    UPVOTE, DOWNVOTE, FETCH_TOPICS,
-    SUBSCRIBE, UNSUBSCRIBE, FETCH_USER_POSTS,
-    CREATE_POST, DELETE_POST, FETCH_POST, UPVOTE_COMMENT, DOWNVOTE_COMMENT, CREATE_COMMENT, REPLY_COMMENT
+    SIGN_OUT,
+    SIGN_IN,
+    FETCH_POSTS,
+    UPVOTE,
+    DOWNVOTE,
+    FETCH_TOPICS,
+    SUBSCRIBE,
+    UNSUBSCRIBE,
+    FETCH_USER_POSTS,
+    CREATE_POST,
+    DELETE_POST,
+    FETCH_POST,
+    UPVOTE_COMMENT,
+    DOWNVOTE_COMMENT,
+    CREATE_COMMENT,
+    REPLY_COMMENT,
+    DELETE_COMMENT
 } from "./types";
 import reddit from "../api/reddit";
 import history from "../history";
@@ -198,6 +211,18 @@ export const replyComment = (id, formValues) => async dispatch => {
             }
         });
         dispatch({ type: REPLY_COMMENT, payload: { data: response.data, id: id }});
+    }
+    catch (err) {}
+};
+
+export const deleteComment = id => async dispatch => {
+    try {
+        const response = await reddit.delete(`/api/comments/comment/${id}`, {
+            headers: {
+                Authorization: `Bearer ${getUser().token}`
+            }
+        });
+        dispatch({ type: DELETE_COMMENT, payload: response.data });
     }
     catch (err) {}
 };
