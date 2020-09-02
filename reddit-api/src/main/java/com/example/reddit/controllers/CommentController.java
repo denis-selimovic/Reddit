@@ -68,7 +68,7 @@ public class CommentController {
         if (p.isEmpty()) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GenericResponse("Post does not exist"));
         }
-        if (c.isEmpty()) {
+        if (c.isEmpty() || c.get().getStatus() == ContentStatus.DELETED) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GenericResponse("Comment does not exist"));
         }
         return ResponseEntity.ok(commentService.reply(request.getText(), c.get(), user, p.get()));
@@ -77,14 +77,16 @@ public class CommentController {
     @PostMapping("/upvote")
     public ResponseEntity<?> upvote(@RequestParam(name = "comment") Long id, Principal principal) {
         Comment comment = commentService.tryUpVote(id, userService.getByUsername(principal.getName()));
-        if (comment == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GenericResponse("Comment does not exist"));
+        if (comment == null || comment.getStatus() == ContentStatus.DELETED)
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GenericResponse("Comment does not exist"));
         return ResponseEntity.ok(comment);
     }
 
     @PostMapping("/downvote")
     public ResponseEntity<?> downvote(@RequestParam(name = "comment") Long id, Principal principal) {
         Comment comment = commentService.tryDownVote(id, userService.getByUsername(principal.getName()));
-        if (comment == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GenericResponse("Comment does not exist"));
+        if (comment == null || comment.getStatus() == ContentStatus.DELETED)
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GenericResponse("Comment does not exist"));
         return ResponseEntity.ok(comment);
     }
 }
