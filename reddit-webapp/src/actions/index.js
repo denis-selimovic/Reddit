@@ -139,8 +139,8 @@ export const createPost = formValues => async dispatch => {
     history.push("/");
 };
 
-export const deletePost = (topic, post) => async dispatch => {
-    await reddit.delete(`/api/posts/delete?topic=${topic}&post=${post}`, {
+export const deletePost = post => async dispatch => {
+    await reddit.delete(`/api/posts/delete?post=${post}`, {
         headers: {
             Authorization: `Bearer ${getUser().token}`
         }
