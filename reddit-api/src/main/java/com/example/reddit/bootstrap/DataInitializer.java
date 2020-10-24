@@ -11,10 +11,9 @@ import com.example.reddit.repository.UserRepository;
 import com.example.reddit.service.RoleService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
-
-@Component
+// @Component
 public class DataInitializer implements CommandLineRunner {
 
     private final UserRepository userRepository;

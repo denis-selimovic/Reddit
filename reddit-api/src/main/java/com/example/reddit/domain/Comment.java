@@ -14,7 +14,6 @@ import java.util.Set;
 @JsonSerialize(using = CommentSerializer.class)
 public class Comment extends BaseEntity {
 
-    @Lob
     private String text;
 
     @ManyToOne(cascade = CascadeType.PERSIST)

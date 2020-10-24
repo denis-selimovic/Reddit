@@ -40,7 +40,7 @@ const Comment = ({ comment, upvoteComment, downvoteComment, deleteComment, post 
                     <div className="text">{c.text}</div>
                     <div className="actions">
                         <Link to={to} className="reply" style={{color: 'grey', cursor: 'pointer'}}>Reply</Link>
-                        {(c.user.id === getUser().id) ? <Link to={deleteTo} className="reply" style={{color: 'grey', cursor: 'pointer'}}>Delete</Link> : null}
+                        {(getUser() && c.user.id === getUser().id) ? <Link to={deleteTo} className="reply" style={{color: 'grey', cursor: 'pointer'}}>Delete</Link> : null}
                     </div>
 
                 </div>

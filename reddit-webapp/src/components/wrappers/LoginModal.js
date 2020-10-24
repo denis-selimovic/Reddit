@@ -40,11 +40,6 @@ const LoginModal = props => {
                                 </div>
                                 <div className="ui horizontal divider"/>
                                 <div className="ui horizontal divider"/>
-                                <div className="item">
-                                    <div className="content">
-                                        Forgot your <Link to="/forgot">password</Link>?
-                                    </div>
-                                </div>
                                 <div className="ui horizontal divider"/>
                                 <div className="item">
                                     <div className="content">

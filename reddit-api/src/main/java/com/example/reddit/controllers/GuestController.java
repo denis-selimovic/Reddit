@@ -25,8 +25,8 @@ public class GuestController {
     }
 
     @GetMapping("/posts")
-    public Set<Post> getPosts() {
-        return postService.findAll();
+    public ResponseEntity<?> getPosts() {
+        return ResponseEntity.ok(postService.findAll());
     }
 
     @GetMapping("/post/{id}/comments")

@@ -21,6 +21,14 @@ import reddit from "../api/reddit";
 import history from "../history";
 import { getUser, addUser, removeUser } from "../user";
 
+const redirect = () => {
+    if (!getUser()) {
+        history.push('/login');
+        return false;
+    }
+    return true;
+}
+
 export const signIn = formValues => {
     const user = getUser();
     if (user && user.token) {
@@ -57,6 +65,7 @@ export const fetchPosts = () => async dispatch => {
 };
 
 export const upvote = id => async dispatch => {
+    if (!redirect()) return;
     try {
         const response = await reddit.post(`/api/posts/upvote?post=${id}`, {}, {
             headers: {
@@ -71,6 +80,7 @@ export const upvote = id => async dispatch => {
 };
 
 export const downvote = id => async dispatch => {
+    if (!redirect()) return;
     try {
         const response = await reddit.post(`/api/posts/downvote?post=${id}`, {}, {
             headers: {
@@ -94,6 +104,7 @@ export const fetchTopics = () => async dispatch => {
 };
 
 export const subscribeToTopic = topic => async dispatch => {
+    if (!redirect()) return;
     try {
         const response = await reddit.post(`/api/topic/subscribe?topic=${topic}`, {}, {
             headers: {
@@ -106,6 +117,7 @@ export const subscribeToTopic = topic => async dispatch => {
 };
 
 export const unsubscribeToTopic = topic => async dispatch => {
+    if (!redirect()) return;
     try {
         const response = await reddit.post(`/api/topic/unsubscribe?topic=${topic}`, {}, {
             headers: {
@@ -130,6 +142,7 @@ export const fetchUserPosts = () => async dispatch => {
 };
 
 export const fetchSubscribedPosts = () => async dispatch => {
+    if (!redirect()) return;
     try {
         const response = await reddit.get(`/api/users/subscribed`, {
             headers: {
@@ -142,6 +155,7 @@ export const fetchSubscribedPosts = () => async dispatch => {
 };
 
 export const createPost = formValues => async dispatch => {
+    if (!redirect()) return;
     const { topic, title, text } = formValues;
     const response = await reddit.post(`/api/posts/create?topic=${topic}`, { title, text }, {
         headers: {
@@ -153,6 +167,7 @@ export const createPost = formValues => async dispatch => {
 };
 
 export const deletePost = post => async dispatch => {
+    if (!redirect()) return;
     await reddit.delete(`/api/posts/delete?post=${post}`, {
         headers: {
             Authorization: `Bearer ${getUser().token}`
@@ -168,6 +183,7 @@ export const fetchPost = id => async dispatch => {
 };
 
 export const upvoteComment = id => async dispatch => {
+    if (!redirect()) return;
     try {
         const response = await reddit.post(`/api/comments/upvote?comment=${id}`, {}, {
             headers: {
@@ -180,6 +196,7 @@ export const upvoteComment = id => async dispatch => {
 };
 
 export const downvoteComment = id => async dispatch => {
+    if (!redirect()) return;
     try {
         const response = await reddit.post(`/api/comments/downvote?comment=${id}`, {}, {
             headers: {
@@ -192,6 +209,7 @@ export const downvoteComment = id => async dispatch => {
 };
 
 export const createComment = formValues => async dispatch => {
+    if (!redirect()) return;
     try {
         const response = await reddit.post(`/api/comments/comment`, formValues, {
             headers: {
@@ -204,6 +222,7 @@ export const createComment = formValues => async dispatch => {
 };
 
 export const replyComment = (id, formValues) => async dispatch => {
+    if (!redirect()) return;
     try {
         const response = await reddit.post(`/api/comments/reply/${id}`, formValues, {
             headers: {
@@ -216,6 +235,7 @@ export const replyComment = (id, formValues) => async dispatch => {
 };
 
 export const deleteComment = id => async dispatch => {
+    if (!redirect()) return;
     try {
         const response = await reddit.delete(`/api/comments/comment/${id}`, {
             headers: {

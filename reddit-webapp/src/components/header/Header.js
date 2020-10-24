@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import GuestHeader from "./GuestHeader";
 import UserHeader from "./UserHeader";
-import { getUser } from "../../user";
+import { getUser, removeUser } from "../../user";
 import { fetchPosts, fetchUserPosts, fetchSubscribedPosts } from "../../actions";
 import history from "../../history";
 import Menu from "../common/Menu";
@@ -39,13 +39,7 @@ class Header extends React.Component {
                     {getUser() ? <Menu options={this.options}/> : null}
                 </div>
                 <div className="right menu">
-                    <div className="item">
-                        <div className="ui icon input">
-                            <input type="text" placeholder="Search..." />
-                                <i className="search link icon"/>
-                        </div>
-                    </div>
-                    {render ? <UserHeader username={user.username}/> : <GuestHeader/>}
+                    {render ? <UserHeader username={user.username} signOut={() => removeUser()}/> : <GuestHeader/>}
                 </div>
             </div>
         );

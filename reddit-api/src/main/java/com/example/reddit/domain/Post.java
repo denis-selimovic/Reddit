@@ -15,7 +15,6 @@ public class Post extends BaseEntity {
 
     private String title;
 
-    @Lob
     private String text;
 
     @JsonIgnore
