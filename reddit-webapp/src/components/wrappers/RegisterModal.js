@@ -2,13 +2,13 @@ import React from "react";
 import ReactDOM from 'react-dom';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
-import { fetchOnSignIn } from '../../actions/index'
-import Login from "../forms/Login";
 import history from "../../history";
+import { register } from "../../actions";
+import Register from "../forms/Register";
 
-const LoginModal = props => {
+const RegisterModal = props => {
 
-    const onSubmit = formValues => props.fetchOnSignIn(formValues);
+    const onSubmit = formValues => props.register(formValues);
     const onBackgroundClicked = e => props.onBackgroundClicked();
 
     return ReactDOM.createPortal(
@@ -16,7 +16,7 @@ const LoginModal = props => {
             <div className="ui standard modal visible active" onClick={e => e.stopPropagation()}>
                 <div className="ui placeholder segment">
                     <div className="ui two column stackable center aligned grid" style={{backgroundColor: 'white'}}>
-                        <div className="ui vertical divider">LOGIN</div>
+                        <div className="ui vertical divider">REGISTER</div>
                         <div className="middle aligned row">
                             <div className="column">
                                 <div className="ui icon header">
@@ -36,7 +36,7 @@ const LoginModal = props => {
                                 <div className="ui horizontal divider"/>
                                 <div className="ui horizontal divider"/>
                                 <div className="item">
-                                    <Login onSubmit={onSubmit}/>
+                                    <Register onSubmit={onSubmit}/>
                                 </div>
                                 <div className="ui horizontal divider"/>
                                 <div className="ui horizontal divider"/>
@@ -51,4 +51,4 @@ const LoginModal = props => {
     );
 };
 
-export default connect(null, { fetchOnSignIn })(LoginModal);
+export default connect(null, { register })(RegisterModal);

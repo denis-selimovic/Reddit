@@ -15,7 +15,7 @@ import {
     DOWNVOTE_COMMENT,
     CREATE_COMMENT,
     REPLY_COMMENT,
-    DELETE_COMMENT
+    DELETE_COMMENT, REGISTER
 } from "./types";
 import reddit from "../api/reddit";
 import history from "../history";
@@ -246,3 +246,12 @@ export const deleteComment = id => async dispatch => {
     }
     catch (err) {}
 };
+
+export const register = data => async dispatch => {
+    try {
+        const response = await reddit.post(`/api/auth/register`, data );
+        dispatch({ type: REGISTER, payload: response.data });
+        history.push('/');
+    }
+    catch (err) {}
+}

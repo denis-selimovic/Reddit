@@ -8,6 +8,7 @@ import CreatePostWrapper from "./components/wrappers/CreatePostWrapper";
 import DeleteModal from "./components/wrappers/DeleteModal";
 import PostDetails from "./components/post/PostDetails";
 import ReplyModal from "./components/wrappers/ReplyModal";
+import RegisterModal from "./components/wrappers/RegisterModal";
 
 function App(props) {
   return (
@@ -17,6 +18,7 @@ function App(props) {
               <Header/>
               <Route exact path="/" component={Body}/>
               <Route exact path="/login" component={() => <LoginModal onBackgroundClicked={() => history.push("/")} />}/>
+              <Route exact path="/signup" component={() => <RegisterModal onBackgroundClicked={() => history.push("/")} />}/>
               <Route exact path="/submit" component={CreatePostWrapper}/>
               <Route exact path="/delete/:id" component={DeleteModal}/>
               <Route exact path="/posts/:id" component={PostDetails}/>
