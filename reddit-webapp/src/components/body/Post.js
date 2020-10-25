@@ -42,8 +42,8 @@ const Post = ({ post, upvote, downvote, subscribeToTopic, unsubscribeToTopic, de
                 <div className="content" style={{paddingLeft: '10px', paddingRight: '10px'}}>
                     <span>
                         <p>
-                            <Link to={`/topic/${post.topic.id}`} style={{marginRight: '5px'}}>{`r/${post.topic.name}`}</Link>
-                            Posted by <Link to={`/users/${post.user.id}`}>{`u/${post.user.username}`}</Link>
+                            <div  style={{marginRight: '5px'}}>{`r/${post.topic.name}`}</div>
+                            Posted by <div >{`u/${post.user.username}`}</div>
                         </p>
                     </span>
                     <Link to={`/posts/${post.id}`} className="header" style={{marginBottom: '10px', marginTop: '10px'}}>{post.title}</Link>
