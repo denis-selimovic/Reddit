@@ -40,8 +40,8 @@ public class AuthService implements UserDetailsService {
         try {
             SecurityContextHolder.getContext().setAuthentication(auth);
         }
-        catch (BadCredentialsException e) {
-            System.err.println("Bad credentials!");
+        catch (BadCredentialsException | UsernameNotFoundException e) {
+            return null;
         }
         return jwtProvider.generateToken(userDetails);
     }
