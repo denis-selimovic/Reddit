@@ -11,6 +11,7 @@ import ReplyModal from "./components/wrappers/ReplyModal";
 import RegisterModal from "./components/wrappers/RegisterModal";
 
 function App(props) {
+
   return (
     <div>
       <Router history={history}>
