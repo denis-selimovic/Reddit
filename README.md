@@ -6,7 +6,7 @@ Reddit Clone is a REST-based web application made with Spring Boot and React wit
 ## Stack
 * The web application is made using __ReactJS with Redux__. 
 * REST API is developed using __Spring Boot__. 
-* QuizBuzz uses __PostgreSQL__.
+* Reddit Clone uses __PostgreSQL__.
 * Web application and server are deployed to __Heroku Platform__.
 * Backend connects to the __PostgreSQL__ database deployed on Heroku.
 
