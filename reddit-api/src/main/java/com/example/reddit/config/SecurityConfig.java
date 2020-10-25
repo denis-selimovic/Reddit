@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -27,16 +26,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final AuthService authService;
     private final JwtAuthEntryPoint jwtAuthEntryPoint;
     private final JwtFilter jwtFilter;
+    private final PasswordEncoder passwordEncoder;
 
-    public SecurityConfig(AuthService authService, JwtAuthEntryPoint jwtAuthEntryPoint, JwtFilter jwtFilter) {
+    public SecurityConfig(AuthService authService, JwtAuthEntryPoint jwtAuthEntryPoint, JwtFilter jwtFilter, PasswordEncoder passwordEncoder) {
         this.authService = authService;
         this.jwtAuthEntryPoint = jwtAuthEntryPoint;
         this.jwtFilter = jwtFilter;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(authService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(authService).passwordEncoder(passwordEncoder);
     }
 
     @Override
@@ -49,11 +50,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(unsecuredEndpoints).permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 
     @Bean
